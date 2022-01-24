@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "e3d510e4-5dc8-488c-8e6a-f6e2b827912a"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "DemoAngularFirstApp": {
+    "Handymand-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/DemoAngularFirstApp",
+            "outputPath": "dist/Handymand-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "DemoAngularFirstApp:build:production"
+              "browserTarget": "Handymand-front:build:production"
             },
             "development": {
-              "browserTarget": "DemoAngularFirstApp:build:development"
+              "browserTarget": "Handymand-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "DemoAngularFirstApp:build"
+            "browserTarget": "Handymand-front:build"
           }
         },
         "test": {
@@ -107,5 +110,5 @@
       }
     }
   },
-  "defaultProject": "DemoAngularFirstApp"
+  "defaultProject": "Handymand-front"
 }

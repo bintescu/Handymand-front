@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'DemoAngularFirstApp'`, () => {
+  it(`should have as title 'Handymand-front'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('DemoAngularFirstApp');
+    expect(app.title).toEqual('Handymand-front');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('DemoAngularFirstApp app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('Handymand-front app is running!');
   });
 });

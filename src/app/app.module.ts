@@ -29,7 +29,7 @@ import { SearchFirstNamePipe } from './pipes/search-first-name.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

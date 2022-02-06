@@ -5,11 +5,12 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
+import {HomeComponent} from './pages/home/home.component';
 
 const routes: Routes = [
   {
     path:"",
-    redirectTo:'dashboard',
+    redirectTo:'home',
     pathMatch:'full'
   },
   {
@@ -30,6 +31,9 @@ const routes: Routes = [
   {
     path:'profile/:id',
     component: ProfileComponent
+  },{
+    path:'home',
+    component:HomeComponent
   }
 ];
 

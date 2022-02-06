@@ -1,0 +1,36 @@
+#home{
+    background-image: url("../../../assets/backgroundHome.jpg");
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 80vh ; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+
+
+.btn-info{
+    font-style: italic;
+    font-size: 5vh;
+}
+
+#earnbtn{
+    padding-left: 75vh;
+    display: inline-block;
+
+}
+#hirebtn{
+    padding-top: 15vh;
+    padding-left: 30vh;
+    display: inline-block;
+
+}
+
+h1{
+    text-align: center;
+    padding-top: 38vh;
+    display:block;
+    text-justify: auto;
+    font-family:'Times New Roman', Times, serif;
+    font-size:7vh;
+}

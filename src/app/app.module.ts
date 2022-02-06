@@ -12,6 +12,8 @@ import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SharedModule } from './shared/shared.module';
 import { SearchFirstNamePipe } from './pipes/search-first-name.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeComponent } from './pages/home/home.component';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { SearchFirstNamePipe } from './pipes/search-first-name.pipe';
     DashboardComponent,
     ProfileComponent,
     SearchFirstNamePipe,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { SearchFirstNamePipe } from './pipes/search-first-name.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
+    FontAwesomeModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -38,4 +42,5 @@ import { SearchFirstNamePipe } from './pipes/search-first-name.pipe';
   }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,5 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 })
 export class AppComponent {
   title = 'Handymand';
+  faCoffee = faCoffee;
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { ContractInfoComponent } from './contract-info/contract-info.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -10,7 +11,8 @@ import { NavbarComponent } from './navbar/navbar.component';
   declarations: [
     UserInfoComponent,
     ContractInfoComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule
@@ -18,7 +20,8 @@ import { NavbarComponent } from './navbar/navbar.component';
   exports:[
     UserInfoComponent,
     ContractInfoComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ]
 })
 export class SharedModule { }

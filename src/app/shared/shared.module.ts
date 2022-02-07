@@ -4,7 +4,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { ContractInfoComponent } from './contract-info/contract-info.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FontAwesomeModule
   ],
   exports:[
     UserInfoComponent,

@@ -18,7 +18,10 @@ export class ContractsService {
   }
 
   getAllContracts(){
-    console.log("apelam get contracts")
     return this.http.get(this.baseUrl + '/api/Contracts/allavailable',this.publicHeaders);
+  }
+
+  getContractsForHomePage(){
+    return this.http.get(this.baseUrl + '/api/Contracts/allavailable/forhomepage',this.publicHeaders);
   }
 }

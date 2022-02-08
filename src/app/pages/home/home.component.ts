@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faStickyNote } from '@fortawesome/free-solid-svg-icons';
-
+import { Contract } from 'src/app/interfaces/contract';
+import { ContractsService } from 'src/app/services/contracts.service';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,23 @@ import { faStickyNote } from '@fortawesome/free-solid-svg-icons';
 export class HomeComponent implements OnInit {
 
   faStickyNote = faStickyNote;
-  constructor() { }
+  public contracts?: Contract[];
+  
+
+  constructor(private contractsService: ContractsService) { }
 
   ngOnInit(): void {
+    this.getContracts();
+    console.log("contracte");
+    console.log(this.contracts);
   }
+
+  getContracts(){
+    this.contractsService.getContractsForHomePage().subscribe((response:any) => {
+      this.contracts = response
+      console.log(this.contracts);
+    })
+  }
+
 
 }

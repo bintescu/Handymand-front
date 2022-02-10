@@ -17,9 +17,6 @@ export class HomeComponent implements OnInit {
   constructor(private contractsService: ContractsService) { }
 
   ngOnInit(): void {
-    this.getContracts();
-    console.log("contracte");
-    console.log(this.contracts);
   }
 
   getContracts(){

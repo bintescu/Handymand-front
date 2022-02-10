@@ -44,7 +44,9 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
           console.log("last name si firstname:");
           console.log(response.lastName + " " + response.firstName);
           localStorage.setItem('name',response.lastName + " " + response.firstName)
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/home']).then(() => {
+            window.location.reload();
+          });
         }
       })
       console.log("Am apelat serviciul de login!")

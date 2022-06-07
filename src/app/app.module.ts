@@ -14,6 +14,9 @@ import { SharedModule } from './shared/shared.module';
 import { SearchFirstNamePipe } from './pipes/search-first-name.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './pages/home/home.component';
+import { JobOffersComponent } from './pages/job-offers/job-offers.component';
+import { HireComponent } from './pages/hire/hire.component';
+import { JobOfferPageComponent } from './pages/job-offer-page/job-offer-page.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { HomeComponent } from './pages/home/home.component';
     DashboardComponent,
     ProfileComponent,
     SearchFirstNamePipe,
-    HomeComponent
+    HomeComponent,
+    JobOffersComponent,
+    HireComponent,
+    JobOfferPageComponent
   ],
   imports: [
     BrowserModule,

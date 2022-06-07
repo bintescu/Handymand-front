@@ -10,7 +10,8 @@ export class ProfileComponent implements OnInit {
 
   public id:string = '';
 
-  constructor(private activatedRoute:ActivatedRoute) { }
+  constructor(private activatedRoute:ActivatedRoute) { 
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:any) =>{

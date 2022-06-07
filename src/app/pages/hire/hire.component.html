@@ -1,0 +1,222 @@
+<div id ="succesPopup"  class="alert alert-success" role="alert">
+    <a class="close" (click)="closePopup()" >&times;</a>
+    <h4 class="alert-heading">Well done!</h4>
+    <p>You successfully created a job offer!</p>
+    <p class="mb-0">You can find it in the Offers section.</p>
+</div>
+
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+
+        <p class="form-group tellUs">Tell us what you need done</p>
+            <form [formGroup] = "myForm" (ngSubmit)="createJobOffer()">
+
+                <div class="form-group fadeIn first" style="margin-top: 2vh; margin-bottom: 2vh;">
+                    <label id="titleL">Title</label>
+                    <div class="inputForm">
+                        <input id="titleI" class="form-control" formControlName="title"
+                        [ngClass]="myForm.controls['title'].errors && (myForm.controls['title'].dirty || myForm.controls['title'].touched ) ? 'is-invalid' :''">
+                    </div>
+
+                </div>
+
+                <!-- Dirty inseamna ca a scris ceva iar touched ca a dat click-->
+                <ng-container *ngIf="myForm.controls['title'].errors?.['maxlength'] && myForm.controls['title'].dirty">
+                    <small class="formError">Title is too long !</small>
+                </ng-container>
+
+                <ng-container *ngIf="myForm.controls['title'].errors?.['required'] && (myForm.controls['title'].dirty || myForm.controls['title'].touched )">
+                    <small class="formError">Title can not be empty !</small>
+                </ng-container>
+
+                <div class="form-group fadeIn second" style="margin-top: 2vh; margin-bottom: 2vh;">
+                    <label id="descL">Description</label>
+                    <div class="inputForm">
+                        <input id="descI" class="form-control" formControlName="description"
+                        [ngClass]="myForm.controls['description'].errors && (myForm.controls['description'].dirty || myForm.controls['description'].touched) ? 'is-invalid' :''">
+                    </div>
+                </div>
+
+                <ng-container *ngIf="myForm.controls['description'].errors?.['required'] && (myForm.controls['description'].dirty || myForm.controls['description'].touched)">
+                    <small class="formError">Description can not be empty!</small>
+                </ng-container>
+
+            
+                <div class="form-group fadeIn third" style="margin-top: 2vh; margin-bottom: 2vh;">
+                    <label id="locatL">Location</label>
+                    <div class="inputForm">
+                        <input class="form-control" formControlName="location"
+                        [ngClass]="myForm.controls['location'].errors && ( myForm.controls['location'].dirty || myForm.controls['location'].touched ) ? 'is-invalid' :''">
+                    </div>
+                </div>
+            
+                <ng-container *ngIf="myForm.controls['location'].errors?.['required'] && (myForm.controls['location'].dirty || myForm.controls['location'].touched)">
+                    <small class="formError">Location can not be empty!</small>
+                </ng-container>
+
+
+                <div class="form-group fadeIn third" style="margin-top: 2vh; margin-bottom: 2vh;">
+                    <label>Payment Amount Range per Hour</label>
+                    <div class="flexContainer">
+                        <label id="fromL">From:</label>
+                        <div class="currency-wrap">
+                            <span class="currency-code">RON</span>
+                            <input id="inputLow" type ="number" class="form-control text-currency"  formControlName="lowPriceRange"
+                            [ngClass]="myForm.controls['lowPriceRange'].errors && ( myForm.controls['lowPriceRange'].dirty || myForm.controls['lowPriceRange'].touched) ? 'is-invalid' :''">
+    
+                        </div>                           
+
+                        <label id="toL">To:</label>
+                        <div class="currency-wrap">
+                            <span class="currency-code">RON</span>
+                            <input id= "inputH" type="number" class="form-control text-currency"  formControlName="highPriceRange"
+                            [ngClass]="myForm.controls['highPriceRange'].errors && ( myForm.controls['highPriceRange'].dirty || myForm.controls['highPriceRange'].touched) ? 'is-invalid' :''">
+                        </div>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="myForm.controls['lowPriceRange'].errors?.['required'] && (myForm.controls['lowPriceRange'].dirty || myForm.controls['lowPriceRange'].touched)">
+                    <small class="formError">Minim price range can not be empty!</small>
+                    <br>
+                </ng-container>
+
+                <ng-container *ngIf="myForm.controls['highPriceRange'].errors?.['required'] && (myForm.controls['highPriceRange'].dirty || myForm.controls['highPriceRange'].touched)">
+                    <small class="formError">Max price range can not be empty!</small>
+                    <br>
+                </ng-container>
+
+                <ng-container *ngIf="myForm.controls['highPriceRange'].errors?.['min'] && (myForm.controls['highPriceRange'].dirty || myForm.controls['highPriceRange'].touched)">
+                    <small class="formError">Invalid price range!</small>
+                </ng-container>
+
+
+                <div id="buttonRegister" style="margin-top: 6vh; margin-bottom: 2vh;">
+                    <button [disabled]="myForm.invalid" type="submit" class="btn btn-success">Register</button>
+                </div>
+
+            </form>
+            <hr>
+            <div class="form-group">
+                <p class="form-group">Contact skilled freelancers within minutes.</p>
+                <p class="form-group"> View profiles, ratings, portfolios and chat with them.</p>
+                <p class="form-group"> Pay the freelancer only when you are 100% satisfied with their work.</p>
+            </div>
+     </div>
+</div>
+
+
+
+
+<section class="section-medium section-arrow--bottom-center section-arrow-primary-color bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-white text-center">
+                <h2 class="section-title "> What Others Say About Us</h2>
+                <p class="section-sub-title">
+                    We are a passionate digital design agency that specializes in beautiful and easy-to-
+                    <br> use digital design &amp; web development services.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container mt-5 mb-5">
+    
+    <div class="row g-2">
+        <div class="col-md-4">
+            <div class="card p-3 text-center px-4">
+                
+                <div class="user-image">
+                    
+                    <img src="https://livedemo00.template-help.com/wt_62267_v8/prod-20823-one-service/images/testimonials-02-306x306.png" class="rounded-circle" width="80">
+                    
+                </div>
+                
+                <div class="user-content">
+                    
+                    <h5 class="mb-0">Bruce Hardy</h5>
+                    <span>Software Developer</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    
+                </div>
+                
+                <div class="ratings">
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            
+            <div class="card p-3 text-center px-4">
+                
+                <div class="user-image">
+                    
+            <img src="https://i.imgur.com/w2CKRB9.jpg" class="rounded-circle" width="80"
+                    >
+                    
+                </div>
+                
+                <div class="user-content">
+                    
+                    <h5 class="mb-0">Mark Smith</h5>
+                    <span>Web Developer</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    
+                </div>
+                
+                <div class="ratings">
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        <div class="col-md-4">
+            
+            <div class="card p-3 text-center px-4">
+                
+                <div class="user-image">
+                    
+            <img src="https://i.imgur.com/ACeArwY.jpg" class="rounded-circle" width="80">
+                    
+                </div>
+                
+                <div class="user-content">
+                    
+                    <h5 class="mb-0">Veera  Duncan</h5>
+                    <span>Software Architect</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    
+                </div>
+                
+                <div class="ratings">
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    <fa-icon [icon]="faStar"></fa-icon>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+    </div>
+    
+</div>

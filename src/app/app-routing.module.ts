@@ -6,6 +6,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
 import {HomeComponent} from './pages/home/home.component';
+import { JoboffersService } from './services/joboffers.service';
+import { JobOffersComponent } from './pages/job-offers/job-offers.component';
+import { HireComponent } from './pages/hire/hire.component';
+import { JobOfferPageComponent } from './pages/job-offer-page/job-offer-page.component';
 
 const routes: Routes = [
   {
@@ -34,6 +38,17 @@ const routes: Routes = [
   },{
     path:'home',
     component:HomeComponent
+  },{
+    path:'joboffers',
+    component:JobOffersComponent
+  },
+  {
+    path:'hire',
+    component:HireComponent
+  },
+  {
+    path:'jobofferpage/:id',
+    component:JobOfferPageComponent
   }
 ];
 

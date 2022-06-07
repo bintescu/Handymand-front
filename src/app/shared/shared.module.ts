@@ -5,14 +5,17 @@ import { ContractInfoComponent } from './contract-info/contract-info.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { JobofferInfoComponent } from './joboffer-info/joboffer-info.component';
 
 
 @NgModule({
   declarations: [
     UserInfoComponent,
     ContractInfoComponent,
+    JobofferInfoComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    JobofferInfoComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +24,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   exports:[
     UserInfoComponent,
     ContractInfoComponent,
+    JobofferInfoComponent,
     NavbarComponent,
     FooterComponent
   ]

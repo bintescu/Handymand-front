@@ -1,0 +1,26 @@
+<div>
+    <figure class="card card-product-grid">
+        <a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
+        <figcaption class="info-wrap">
+            <div class="fix-height">
+                <a href="#" class="title">{{creationName}}</a>
+                <p class="card-text">{{title}}</p>
+                <div class="price-wrap mt-2">
+                    <span class="price">Payment : {{lowPrice}} - {{highPrice}} RON / h</span>
+                </div> <!-- price-wrap.// -->
+            </div>
+            <div class="viewButton">
+                <a (click)="showDetails()" class="btn btn-block btn-primary">View Job</a>	
+            </div>
+
+        </figcaption>
+        <div *ngIf="daysAgo != 0; else elseBlock" class="card-footer text-muted">
+            {{daysAgo}} days ago
+        </div>
+        <ng-template #elseBlock>
+            <div class="card-footer text-muted">
+                Today
+            </div>
+        </ng-template>
+    </figure>
+</div>

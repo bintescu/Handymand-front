@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
     if(this.myForm.valid){
       //call api register cu datele din this.myForm.value
       this.authService.register(this.myForm.value).subscribe((response:any) => {
+        this.myForm.reset();
         this.router.navigate(['/login']);
       })
     }

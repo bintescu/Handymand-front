@@ -120,16 +120,16 @@
   }
   .popup .close {
     position: absolute;
-    top: 20px;
-    right: 30px;
+    top:0.5%;
+    left:95%;
     transition: all 200ms;
     font-size: 30px;
     font-weight: bold;
-    text-decoration: none;
+    text-decoration:dotted;
     color: #333;
   }
   .popup .close:hover {
-    color: #06D85F;
+    color: #36a1e9;
     cursor: pointer;
   }
   

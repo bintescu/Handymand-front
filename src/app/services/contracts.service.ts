@@ -10,7 +10,8 @@ export class ContractsService {
   private baseUrl: string = environment.baseUrl;
   private publicHeaders = {
     headers:new HttpHeaders({
-      'content-type':'application/json'
+      'content-type':'application/json',
+      Authorization : 'Bearer ' + localStorage.getItem('token'),
     })
   }
 
@@ -18,7 +19,7 @@ export class ContractsService {
   }
 
   getAllContracts(){
-    return this.http.get(this.baseUrl + '/api/Contracts/allavailable',this.publicHeaders);
+    return this.http.get(this.baseUrl + '/api/contracts/allavailable',this.publicHeaders);
   }
 
   getContractsForHomePage(){

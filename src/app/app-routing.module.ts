@@ -10,6 +10,9 @@ import { JoboffersService } from './services/joboffers.service';
 import { JobOffersComponent } from './pages/job-offers/job-offers.component';
 import { HireComponent } from './pages/hire/hire.component';
 import { JobOfferPageComponent } from './pages/job-offer-page/job-offer-page.component';
+import { TestJsComponent } from './pages/test-js/test-js.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -20,12 +23,10 @@ const routes: Routes = [
   {
     path:'login',
     component:LoginComponent,
-    canActivate:[HasPermissionGuard],
   },
   {
     path:'register',
-    component: RegisterComponent,
-    canActivate:[HasPermissionGuard],
+    component: RegisterComponent
   },
   {
     path:'dashboard',
@@ -47,8 +48,20 @@ const routes: Routes = [
     component:HireComponent
   },
   {
-    path:'jobofferpage/:id',
+    path:'jobofferpage',
     component:JobOfferPageComponent
+  },
+  {
+    path:'testjs',
+    component:TestJsComponent
+  },
+  {
+    path:'myprofile',
+    component:MyProfileComponent
+  },
+  {
+    path:'editprofile',
+    component:EditProfileComponent
   }
 ];
 

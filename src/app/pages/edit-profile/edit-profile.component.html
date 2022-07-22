@@ -1,0 +1,176 @@
+
+<div id ="failedPopup"  class="alert alert-danger" role="alert">
+  <a class="close" (click)="closePopup()" >&times;</a>
+  <h4 class="alert-heading">Format error</h4>
+  <p>Supported file formats: PNG, JPG, JPEG.</p>
+</div>
+
+<div class="container">
+  <div class="main-body">
+
+  
+    <form [formGroup] ="updateForm" (ngSubmit)="doUpdate()">
+        <div class="row gutters-sm">
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                  <div>
+                    <div class="profile-pic">
+                      <label class="-label" for="file">
+                        <span class="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                      </label>
+                      <input id="file" accept="image/*" type="file" (change)="onFileSelect($event)"/>
+                      <img #profileImage src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    </div>
+
+                  </div>
+                  <div class="mt-3">
+                    <h4>{{user.lastName}} {{user.firstName}}</h4>
+                    <p class="text-secondary mb-1">{{user.title}}</p>
+                    <p class="text-muted font-size-sm">{{user.address}}</p>
+                    <p style="display: inline-block; padding-right: 1vw;" class="text-muted font-size-sm" id="myWallet">{{user.walletAddress}}</p>
+                    <button (click)="copyWalletAdress()" style="display: inline-block;"  type="button" class="btn btn-outline-primary" ><fa-icon [icon]="faclipboard"></fa-icon></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mt-3">
+              <div class="about-text go-to">
+                <h3 class="dark-color" style="padding-left: 6vw;">About Me</h3>
+                <textarea rows="5" cols="2" class="form-control" formControlName="aboutMe"
+                [ngClass]="updateForm.controls['aboutMe'].errors && (updateForm.controls['aboutMe'].dirty || updateForm.controls['description'].touched) ? 'is-invalid' :''"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card mb-3">
+              <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control" formControlName="email"
+                      [ngClass]="updateForm.controls['email'].errors && updateForm.controls['email'].dirty ? 'is-invalid' :''">
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Phone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control" formControlName="phone"
+                      [ngClass]="updateForm.controls['phone'].errors && updateForm.controls['phone'].dirty ? 'is-invalid' :''">
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Address</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control" formControlName="address"
+                      [ngClass]="updateForm.controls['address'].errors && updateForm.controls['address'].dirty ? 'is-invalid' :''">
+                    </div>
+                  </div>
+                  <hr>
+
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Title</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control" formControlName="title"
+                      [ngClass]="updateForm.controls['title'].errors && updateForm.controls['title'].dirty ? 'is-invalid' :''">
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Birthday</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control" formControlName="birthday" type="date"
+                      min="1930-01-01" max="2018-06-14"
+                      [ngClass]="updateForm.controls['birthday'].errors && updateForm.controls['birthday'].dirty ? 'is-invalid' :''">
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Age</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{age}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Joining Date</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{joiningDate}}
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button [disabled]="updateForm.invalid" type="submit" class="btn btn-info">Save</button>
+                    </div>
+                  </div>
+
+                
+              </div>
+            </div>
+
+            <div class="row gutters-sm">
+              <div class="col-sm-6 mb-3">
+                <div class="counter">
+                  <div class="row">
+                      <div class="col-6 col-lg-3">
+                          <div class="count-data text-center">
+                              <h6 class="count h2" data-to="500" data-speed="500">500</h6>
+                              <p class="m-0px font-w-600">Opened Contracts</p>
+                          </div>
+                      </div>
+                      <div class="col-6 col-lg-3">
+                          <div class="count-data text-center">
+                              <h6 class="count h2" data-to="150" data-speed="150">150</h6>
+                              <p class="m-0px font-w-600">Successfully Closed Contracts</p>
+                          </div>
+                      </div>
+                      <div class="col-6 col-lg-3">
+                          <div class="count-data text-center">
+                              <h6 class="count h2" data-to="850" data-speed="850">850</h6>
+                              <p class="m-0px font-w-600">Likes</p>
+                          </div>
+                      </div>
+                      <div class="col-6 col-lg-3">
+                          <div class="count-data text-center">
+                              <h6 class="count h2" data-to="190" data-speed="190">190</h6>
+                              <p class="m-0px font-w-600">Dislikes</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+    </form>
+  </div>
+</div>

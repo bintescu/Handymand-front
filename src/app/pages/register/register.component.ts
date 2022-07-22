@@ -18,17 +18,20 @@ export class RegisterComponent implements OnInit {
       email:['',[Validators.required,Validators.email]],
       firstName:['',[Validators.required]],
       lastName:['',Validators.required],
-      password:['',[Validators.required,Validators.minLength(5)]]
+      password:['',[Validators.required,Validators.minLength(5)]],
+      birthday :['',[Validators.required]]
     })
   }
 
   doRegister(){
     console.log(this.myForm)
     if(this.myForm.valid){
+      console.log('form valid:')
+      console.log(this.myForm);
       //call api register cu datele din this.myForm.value
       this.authService.register(this.myForm.value).subscribe((response:any) => {
         this.myForm.reset();
-        this.router.navigate(['/login']);
+        //this.router.navigate(['/login']);
       })
     }
   }

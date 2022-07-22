@@ -17,6 +17,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { JobOffersComponent } from './pages/job-offers/job-offers.component';
 import { HireComponent } from './pages/hire/hire.component';
 import { JobOfferPageComponent } from './pages/job-offer-page/job-offer-page.component';
+import { TestJsComponent } from './pages/test-js/test-js.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { JobOfferPageComponent } from './pages/job-offer-page/job-offer-page.com
     HomeComponent,
     JobOffersComponent,
     HireComponent,
-    JobOfferPageComponent
+    JobOfferPageComponent,
+    TestJsComponent,
+    MyProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

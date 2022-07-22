@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,14 +15,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('avem user id in userservice:');
     this.activatedRoute.params.subscribe((params:any) =>{
       console.log(params);
       this.id = params['id'];
     });
-
-    this.activatedRoute.queryParams.subscribe((qparams:any) => {
-      console.log(qparams);
-    });
   }
-
 }

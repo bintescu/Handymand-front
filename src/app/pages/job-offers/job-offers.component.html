@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="https://fontawesome.com/v4.7.0/assets/font-awesome/css/font-awesome.css">
-
 
 <div class="container">
 	<div class="row">
@@ -8,31 +6,36 @@
 			<div class="card">
 				<article class="filter-group">
 					<header class="card-header">
-						<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
-							<i class="icon-control fa fa-chevron-down"></i>
-							<h6 class="title">Product type</h6>
-						</a>
+						<h6 class="title">Creator Name</h6>
 					</header>
 					<div class="filter-content collapse show" id="collapse_1" style="">
 						<div class="card-body">
 							<form class="pb-3">
-							<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search">
-							<div class="input-group-append">
-								<button class="btn btn-light" type="button"><i class="fa fa-search"></i></button>
-							</div>
-							</div>
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search">
+									<div class="input-group-append">
+										<button class="btn btn-block btn btn-secondary">Apply</button>
+									</div>
+								</div>
 							</form>
-							
-							<ul class="list-menu">
-							<li><a href="#">People  </a></li>
-							<li><a href="#">Watches </a></li>
-							<li><a href="#">Cinema  </a></li>
-							<li><a href="#">Clothes  </a></li>
-							<li><a href="#">Home items </a></li>
-							<li><a href="#">Animals</a></li>
-							<li><a href="#">People </a></li>
-							</ul>
+
+						</div> <!-- card-body.// -->
+					</div>
+				</article> <!-- filter-group  .// -->
+				<article class="filter-group">
+					<header class="card-header">
+						<h6 class="title">Keywords</h6>
+					</header>
+					<div class="filter-content collapse show" id="collapse_1" style="">
+						<div class="card-body">
+							<form class="pb-3">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search">
+									<div class="input-group-append">
+										<button class="btn btn-block btn btn-secondary">Apply</button>
+									</div>
+								</div>
+							</form>
 
 						</div> <!-- card-body.// -->
 					</div>
@@ -188,6 +191,7 @@
 			<div class="everyOffer" *ngFor = "let job of joboffers">
 				<app-joboffer-info
 				[creationName] = "job.firstName" 
+				[creationId] = "job.idCreationUser"
 				[description] = "job.description"
 				[lowPrice] = "job.lowPriceRange"
 				[highPrice] = "job.highPriceRange"

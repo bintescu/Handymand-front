@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { JobOffer } from '../interfaces/job-offer';
 @Injectable({
@@ -11,6 +13,12 @@ export class JoboffersService {
   private publicHeaders = {
     headers:new HttpHeaders({
       'content-type':'application/json'
+    })
+  }
+
+  private privateHeaderCreateForm ={
+    headers:new HttpHeaders({
+      Authorization : 'Bearer ' + localStorage.getItem('token'),
     })
   }
 
@@ -28,10 +36,25 @@ export class JoboffersService {
       this.publicHeaders);
   }
 
+  createJobOfferForm(data:FormData){
+    console.log('Am primit data:')
+    console.log(data)
+    console.log(' Files in createjoboffer')
+    console.log(data.get('files'));
+
+    return this.http.post(
+      this.baseUrl + "/api/JobOffer/create",
+      data);
+  }
+
   getSpecificJobOffer(id:number){
+    //Asa se declara un obiect json
+     var data:any = {};
+     data.Id = id;
+     data.UserId = localStorage.getItem("loggedInId");
     return this.http.post(
       this.baseUrl + "/api/JobOffer/getById",
-      id,
+      data,
       this.publicHeaders);
   }
 

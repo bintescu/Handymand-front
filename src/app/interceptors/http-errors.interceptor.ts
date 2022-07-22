@@ -13,11 +13,19 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
 
   constructor() {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log(request);
-    return next.handle(request).pipe(catchError((error:HttpErrorResponse) => {
-      console.log(error.status, error.message);
-      return throwError(error);
-    }));
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        const cloned = req.clone({
+            headers: req.headers.set("Authorization",
+                "Bearer " + token)
+        });
+
+        return next.handle(cloned);
+    }
+    else {
+        return next.handle(req);
+    }
   }
 }

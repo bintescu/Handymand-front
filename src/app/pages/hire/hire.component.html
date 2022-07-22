@@ -33,8 +33,8 @@
                 <div class="form-group fadeIn second" style="margin-top: 2vh; margin-bottom: 2vh;">
                     <label id="descL">Description</label>
                     <div class="inputForm">
-                        <input id="descI" class="form-control" formControlName="description"
-                        [ngClass]="myForm.controls['description'].errors && (myForm.controls['description'].dirty || myForm.controls['description'].touched) ? 'is-invalid' :''">
+                        <textarea id="descI" rows="5" cols="2" class="form-control" formControlName="description"
+                        [ngClass]="myForm.controls['description'].errors && (myForm.controls['description'].dirty || myForm.controls['description'].touched) ? 'is-invalid' :''"></textarea>
                     </div>
                 </div>
 
@@ -55,8 +55,27 @@
                     <small class="formError">Location can not be empty!</small>
                 </ng-container>
 
-
                 <div class="form-group fadeIn third" style="margin-top: 2vh; margin-bottom: 2vh;">
+                    <label id="locatL">Images</label>
+                    <div class="inputFormFile">
+                        <input #fileInput type="file" (change)="onFileSelect($event)" class="form-control" formControlName="files" multiple
+                        [ngClass]="myForm.controls['files'].errors && ( myForm.controls['files'].dirty || myForm.controls['files'].touched) ? 'is-invalid' :''">
+                        <button type="button" (click)="reset(fileInput)" class="btn btn-outline-primary" style="margin-left: 0.2vw">X</button>
+                    </div>
+                </div>
+
+
+                <ng-container *ngIf="incorrectFile == true">
+                    <div  *ngFor = "let file of incorrectFiles">
+                        <small>{{file}}</small>
+                    </div>
+
+                    <small class="formError">Supported file formats : JPG, JPEG, PNG.</small>
+
+                </ng-container>
+
+
+                <div class="form-group fadeIn third" style="margin-top: 4vh; margin-bottom: 2vh;">
                     <label>Payment Amount Range per Hour</label>
                     <div class="flexContainer">
                         <label id="fromL">From:</label>

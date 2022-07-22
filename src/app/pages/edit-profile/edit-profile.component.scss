@@ -1,3 +1,61 @@
+
+@mixin object-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$circleSize: 165px;
+$radius: 100px;
+$shadow: 0 0 10px 0 rgba(255,255,255,.35);
+$fontColor: rgb(250,250,250);
+
+.profile-pic {
+  color: transparent;
+  transition: all .3s ease;
+  @include object-center;
+  position: relative;
+  transition: all .3s ease;
+  
+  input {
+    display: none;
+  }
+  
+  img {
+    position: absolute;
+    object-fit: cover;
+    width: $circleSize;
+    height: $circleSize;
+    box-shadow: $shadow;
+    border-radius: $radius;
+    z-index: 0;
+  }
+  
+  .-label {
+    cursor: pointer;
+    height: $circleSize;
+    width: $circleSize;
+  }
+  
+  &:hover {
+    .-label {
+      @include object-center;
+      background-color: rgba(0,0,0,.8);
+      z-index: 10000;
+      color: $fontColor;
+      transition: background-color .2s ease-in-out;
+      border-radius: $radius;
+      margin-bottom: 0;
+    }
+  }
+  
+  span {
+    display: inline-flex;
+    padding: .2em;
+    height: 2em;
+  }
+}
+
 body{
     margin-top:20px;
     color: #1a202c;
@@ -165,4 +223,38 @@ img {
 }
 .dark-color {
     color: #20247b;
+}
+
+#failedPopup{
+  margin-left: 10%;
+  margin-top: 0%;
+  position:absolute;
+  z-index: -1;
+  box-shadow: 1px 1px 3px 1px #999;
+  border-radius: 5px;
+  opacity: 0%;
+  transition: all 1s ease-in-out;
+  transition-property: margin-top, opacity, z-index;
+}
+
+.alert .close {
+  position: absolute;
+  top: 0.3vh;
+  right: 0.5vw;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.alert .close:hover {
+  color: #d82d06;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 700px){
+
+  .alert{
+    width: 30%;
+  }
 }

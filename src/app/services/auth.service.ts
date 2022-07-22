@@ -9,6 +9,8 @@ import { User } from '../interfaces/user';
 })
 export class AuthService {
 
+  private userValue:User | undefined;
+  
   private baseUrl: string = environment.baseUrl;
   private publicHeaders = {
     headers:new HttpHeaders({
@@ -19,7 +21,7 @@ export class AuthService {
   constructor(private http:HttpClient) { 
   }
 
-  login(data: User){
+  login(data: any){
     return this.http.post(
       this.baseUrl + "/api/Users/authenticate",
       data,
@@ -27,6 +29,8 @@ export class AuthService {
   }
 
   register(data: User){
+    console.log('trimitem la server din serviciu:')
+    console.log(data);
     return this.http.post(
       this.baseUrl + "/api/Users/create",
       data,

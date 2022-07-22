@@ -1,16 +1,16 @@
 <div>
     <figure class="card card-product-grid">
-        <a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
+        <a class="btn-overlay" (click)="showDetails2()" ><i class="fa fa-search-plus"></i> Quick view</a>
         <figcaption class="info-wrap">
             <div class="fix-height">
-                <a href="#" class="title">{{creationName}}</a>
+                <a (click)="showProfile()" class="title">{{creationName}}</a>
                 <p class="card-text">{{title}}</p>
                 <div class="price-wrap mt-2">
                     <span class="price">Payment : {{lowPrice}} - {{highPrice}} RON / h</span>
                 </div> <!-- price-wrap.// -->
             </div>
             <div class="viewButton">
-                <a (click)="showDetails()" class="btn btn-block btn-primary">View Job</a>	
+                <a (click)="showDetails2()" class="btn btn-block btn-primary">View Job</a>	
             </div>
 
         </figcaption>

@@ -461,11 +461,17 @@ img {
 
 
 //------------------------------ FORM ----------
-.inputForm{
-    padding-left: 2%;
-    padding-right: 2%;
-  }
+    .inputForm{
+        padding-left: 2%;
+        padding-right: 2%;
+      }
     
+    .inputFormFile{
+      padding-left: 2%;
+      padding-right: 2%;
+      display: flex;
+    }
+
     a {
       color: #92badd;
       display:inline-block;
@@ -795,6 +801,7 @@ img {
       cursor: pointer;
     }
     
+
     @media screen and (max-width: 700px){
     
       .alert{

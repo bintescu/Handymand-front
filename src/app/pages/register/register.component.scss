@@ -254,3 +254,38 @@
   #icon {
     width:60%;
   }
+
+
+  #failedPopup{
+    margin-left: 35.5%;
+    margin-top: 0%;
+    position:absolute;
+    z-index: -1;
+    box-shadow: 1px 1px 3px 1px #999;
+    border-radius: 5px;
+    opacity: 0%;
+    transition: all 1s ease-in-out;
+    transition-property: margin-top, opacity;
+  }
+
+  .alert .close {
+    position: absolute;
+    top: 0.3vh;
+    right: 0.5vw;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .alert .close:hover {
+    color: #d82d06;
+    cursor: pointer;
+  }
+  
+
+  @media screen and (max-width: 700px){
+  
+    .alert{
+      width: 30%;
+    }
+  }

@@ -28,7 +28,9 @@ export class EditProfileComponent implements OnInit {
     phone:'',
     title:'',
     role: -1,
-    birthday: null
+    birthday: null,
+    iv:null,
+    amount: null
   }
 
   age!:number;

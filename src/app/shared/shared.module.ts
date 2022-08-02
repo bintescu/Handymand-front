@@ -19,8 +19,8 @@ import { JobofferInfoComponent } from './joboffer-info/joboffer-info.component';
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
-  ],
+    FontAwesomeModule,
+  ], 
   exports:[
     UserInfoComponent,
     ContractInfoComponent,

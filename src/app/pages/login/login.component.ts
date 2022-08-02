@@ -2,6 +2,7 @@ import { Component, ElementRef, OnChanges, OnDestroy, OnInit, ViewChild } from '
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,9 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
     phone:'',
     title:'',
     role: -1,
-    birthday: new Date()
+    birthday: new Date(),
+    iv:null,
+    amount:null
   }
 
   public email:string = '';
@@ -40,6 +43,9 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
   myDiv!: ElementRef;
 
   @ViewChild("loginButton") loginButton!:any;
+
+  private IvEnv:CryptoJS.lib.WordArray  = CryptoJS.lib.WordArray.random(16);
+  private keyEnv: string = environment.key;
   
   validateEmail(email:string) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -48,21 +54,41 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')){
-      this.router.navigate(['/home']).then(() => {
-        window.location.reload();
-      });
+    var token = localStorage.getItem('token');
+    if(token != undefined && token != null){
+      let id = this.parseJwt(token).id
+      if( id != null && id != '' ){
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload();
+        });
+      }
     }
+
   }
 
 
+  parseJwt(token:string|null|undefined) {
+    if(token != null && token != undefined){
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace('-', '+').replace('_', '/');
+      return JSON.parse(window.atob(base64));
+    }
+
+  }
+
   doLogin():void{
     this.error = false;
-    let data = {
-      "email":this.email,
-      "password":this.password
-    }
+
     if(this.validateEmail(this.email)){
+
+      
+      let data = {
+        "email":this.authService.set(this.email,this.keyEnv,this.IvEnv),
+        "password":this.authService.set(this.password,this.keyEnv,this.IvEnv),
+        "iv":this.authService.wordArrayToByteArray(this.IvEnv,16)
+      }
+
+
       try{
 
         const observer = {
@@ -77,7 +103,12 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
           error: (err:any) =>{
               this.loginButton.nativeElement.disabled = true;
               //Afiseaza fereastra de succes
-              const element = document.getElementById('succesPopup');
+
+              const message = document.getElementById('failedMessage');
+              if(message != null){
+                message.innerHTML = err.error.message;
+              }
+              const element = document.getElementById('failedPopup');
               if(element != null){
                 element.style.opacity = "100%";
                 element.style.zIndex = "10";
@@ -88,7 +119,7 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
                   element.style.marginTop = "5%"
                 }, 3000);
               }
-              var timeleft = 15;
+              var timeleft = 10;
               var downloadTimer = setInterval(() =>{
                   if(timeleft <= 0){
                     clearInterval(downloadTimer);
@@ -103,15 +134,6 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
           complete: () => console.log('Observer got a complete notification'),
         }
         this.authService.login(data).subscribe(observer);
-        // this.authService.login(data).subscribe((response:any) => {
-        //   if(response && response.data.token){
-        //     localStorage.setItem('token',response.data.token);
-        //     localStorage.setItem('name',response.data.lastName + ' ' + response.data.firstName)
-        //     this.router.navigate(['/home']).then(() => {
-        //       window.location.reload();
-        //     });
-        //   }
-        // })
       }
       catch(e){
         console.log("Exceptia :")
@@ -133,7 +155,7 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   closePopup(){
-    const element = document.getElementById('succesPopup');
+    const element = document.getElementById('failedPopup');
         if(element != null){
           element.style.visibility = "hidden";
           element.style.visibility = "0%";

@@ -11,35 +11,71 @@ export class HasPermissionGuard implements CanActivate {
 
   }
 
+  parseJwt(token:string|null|undefined) {
+    if(token != null && token != undefined){
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace('-', '+').replace('_', '/');
+      return JSON.parse(window.atob(base64));
+    }
+
+  }
+
+
   //https://jasonwatmore.com/post/2020/09/09/angular-10-role-based-authorization-tutorial-with-example
   //https://www.rdegges.com/2018/please-stop-using-local-storage/
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    console.log('s-a activat guardul');
-    console.log('state :')
-    console.log(state);
-    console.log('route:')
-    console.log(route);
-    console.log('local Storage permissions :');
-    console.log(localStorage.getItem("permissions"));
 
-    //Verificam ce path-uri de permisiuni are in ls
-    //Daca nu are permisiuni setate poate accesa doar HOME SCREEN
-    if(localStorage.getItem("permissions")){
-      const permissions = JSON.parse(localStorage.getItem("permissions")!);
-      console.log('am luat permisiunile :')
-      console.log(permissions)
-      if(!permissions[route.routeConfig?.path!]){
-        this.router.navigate(['/login']);
-        return false;
+    var path = route.routeConfig?.path;
+    var userPaths = ["profile","home","joboffers","hire","jobofferpage","myprofile","editprofile"];
+    var adminPaths = ["dashboard","testjs"];
+
+    var token = localStorage.getItem('token');
+    if(token == null || token == undefined){
+      this.router.navigate(['/login']);
+      return false;
+    }
+    var id = this.parseJwt(token).id;
+
+    console.log('pe guard id:')
+    console.log(id);
+    if(id != null && id != '' && id != 0){
+
+      if(path == undefined){
+        this.router.navigate(['/notfound']);
+      }
+      else{
+        var role = this.parseJwt(token).role;
+
+        if(role == 0){
+
+          if(adminPaths.includes(path) || userPaths.includes(path)){
+            return true;
+          }
+          else{
+            this.router.navigate(['/unauthorized']);
+          }
+        }
+
+        if(role == 1){
+
+          if(userPaths.includes(path)){
+            return true;
+          }
+          else{
+            this.router.navigate(['/unauthorized']);
+          }
+        }
+
+        this.router.navigate(['/unauthorized']);
+
       }
     }
     else{
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
     }
-
 
     return true;
   }

@@ -1,3 +1,9 @@
+<div id ="failedPopup"  class="alert alert-danger" role="alert">
+    <a class="close" (click)="closePopup()" >&times;</a>
+    <h4 class="alert-heading">Register error</h4>
+    <p id="failedMessage"></p>
+</div>
+
 
 <div class="wrapper fadeInDown">
     <div id="formContent">
@@ -47,7 +53,8 @@
                   
             
                 <div id="buttonRegister" style="margin-top: 2vh; margin-bottom: 2vh;">
-                    <button [disabled]="myForm.invalid" type="submit" class="btn btn-success">Register</button>
+                    <button #registerButton  [disabled]="myForm.invalid" type="submit" class="btn btn-success">Register</button>
+                    <div #countdown></div>
                 </div>
 
             </form>

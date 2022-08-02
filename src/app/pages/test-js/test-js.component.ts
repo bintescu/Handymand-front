@@ -1,6 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { first, from, fromEvent, interval, map, multicast, Observable, of, Subject, Subscriber, refCount, Subscription,share } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
+import { Byte } from '@angular/compiler/src/util';
+import { createPipe } from '@angular/compiler/src/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-test-js',
@@ -10,8 +14,10 @@ import * as CryptoJS from 'crypto-js';
 export class TestJsComponent implements OnInit,OnDestroy {
 
 
-  constructor() { }
-
+  constructor(private userService:UserService) { }
+  private keyEnv: string = environment.key;
+  private IvEnv:CryptoJS.lib.WordArray  = CryptoJS.lib.WordArray.random(16);
+  private IvEnv2:Byte[] = [108, 189, 156, 48, 55, 144, 182, 132, 157, 11, 66, 223, 241, 207, 210, 82];
   subscription:any = null;
 
   ngOnInit(): void {
@@ -430,10 +436,8 @@ export class TestJsComponent implements OnInit,OnDestroy {
     // .catch(error => console.log(error));
 
     //TREBUIE FOLOSIT FARA SPATIU!!
-    var encrypted = this.set("123456$#@$^@1ERF", 'password@123456');
-    var decrypted = this.get("123456$#@$^@1ERF", encrypted);
-    console.log(encrypted);
-    console.log(decrypted);
+
+
   }
 
   ngOnDestroy(){
@@ -441,13 +445,164 @@ export class TestJsComponent implements OnInit,OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-  set(keys:string, value:string){
-    var key = CryptoJS.enc.Utf8.parse(keys);
-    var iv = CryptoJS.enc.Utf8.parse(keys);
-    var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value.toString()), key,
+
+
+  stringFromUTF8Array(data:Byte[])
+  {
+    const extraByteMap = [ 1, 1, 1, 1, 2, 2, 3, 0 ];
+    var count = data.length;
+    var str = "";
+    
+    for (var index = 0;index < count;)
+    {
+      var ch = data[index++];
+      if (ch & 0x80)
+      {
+        var extra = extraByteMap[(ch >> 3) & 0x07];
+        if (!(ch & 0x40) || !extra || ((index + extra) > count))
+          return null;
+        
+        ch = ch & (0x3F >> extra);
+        for (;extra > 0;extra -= 1)
+        {
+          var chx = data[index++];
+          if ((chx & 0xC0) != 0x80)
+            return null;
+          
+          ch = (ch << 6) | (chx & 0x3F);
+        }
+      }
+      
+      str += String.fromCharCode(ch);
+    }
+    
+    return str;
+  }
+
+
+  bin2String(array:Byte[]) {
+    var result = "";
+    for (var i = 0; i < array.length; i++) {
+      result += String.fromCharCode(array[i]);
+    }
+    return result;
+  }
+
+
+  wordToByteArray(word:number, length:number) {
+    var ba = [],
+      i,
+      xFF = 0xFF;
+    if (length > 0)
+      ba.push(word >>> 24);
+    if (length > 1)
+      ba.push((word >>> 16) & xFF);
+    if (length > 2)
+      ba.push((word >>> 8) & xFF);
+    if (length > 3)
+      ba.push(word & xFF);
+  
+    return ba;
+  }
+
+
+  wordArrayToByteArray(wordArray:CryptoJS.lib.WordArray, length:number) {
+    let words:number[] = [];
+
+    if (wordArray.hasOwnProperty("sigBytes") && wordArray.hasOwnProperty("words")) {
+      length = wordArray.sigBytes;
+      words = wordArray.words;
+    }
+  
+    var result = [],
+      bytes,
+      i = 0;
+
+    while (length > 0) {
+      bytes = this.wordToByteArray(words[i], Math.min(4, length));
+      length -= bytes.length;
+      result.push(bytes);
+      i++;
+    }
+    //return [].concat.apply([], result);
+    return result.reduce((accumulator, value) => accumulator.concat(value), []);
+  }
+
+
+  byteArrayToWordArray(ba:Byte[]) {
+    var wa:number[] = [],
+      i;
+    for (i = 0; i < ba.length; i++) {
+      wa[(i / 4) | 0] |= ba[i] << (24 - 8 * i);
+    }
+  
+    return CryptoJS.lib.WordArray.create(wa, ba.length);
+  }
+
+
+  testEncryption(){
+    //TREBUIE FOLOSIT CATE UN IV DIFERIT PENTRU FIECARE FISIER TRIMIS SI CRIPTAT!
+    //ACEA CHEIE ESTE SALVATA IN ENVIRONMENT si pe server si pe client
+    //TU TREBUIE SA GENEREZI IV-uri d-astea si pe server si in client
+
+
+    let name:string = "Ia sa punem altceva";
+    
+    let nameEncrypted:string = this.set(name,this.keyEnv,this.IvEnv);
+
+    console.log('key:',this.keyEnv)
+    console.log('Iv word array:',this.IvEnv)
+
+    var bytearray:Byte[] = this.wordArrayToByteArray(this.IvEnv,16);
+
+    console.log('Iv byte array:',bytearray);
+
+    var decrypted = this.get(nameEncrypted,this.keyEnv,this.IvEnv);
+    console.log('Encrypted word:')
+    console.log(nameEncrypted);
+    console.log('decrypted word:')
+    console.log(decrypted);
+
+
+
+    // Trimiti la server criptarea si cu bytearray
+    //Bytearray il obtii cu metoda aia wordArrayToByteArray 
+    //Trebuie sa folosesti metoda de generatere din WordArray a lui CryptoJs sa fie
+    //Criptografic sigur, si de aia faci conversia aia din ce ai generat in byte array
+    //Pentru ca serverul trebuie sa primeasca byte array
+    //Asa ai configurat tu (ca sa poata primi byte array)
+    var data = {
+      "Id":null,
+      "SkillName":nameEncrypted,
+      "Iv": bytearray
+    }
+
+    const observer = {
+      next: (response:any)=>{
+        console.log('raspuns:')
+        console.log(response)
+        console.log(CryptoJS.enc.Base64.parse(response.iv));
+        //Atunci cand ai primit raspunsul, ca sa il decriptezi te folosesti de
+        //IV-ul trimis de pe server 
+        //Dar tu ai pus in acel JSONparse din DTOs sa il faci Base64
+        //Asa ca il parsezi cu formatul Base64 si asa devine WordArray
+        //Il folosesti in functia de cryptare si ai primit raspunsul serverului
+        //Sanatate toate cele bune
+        console.log(this.get(response.data,this.keyEnv,CryptoJS.enc.Base64.parse(response.iv)));
+      },
+      error: (e:any) => {
+        console.log("EROR",e)
+      }
+    }
+    this.userService.testEncryption(data).subscribe(observer);
+  }
+
+  set(value:string, keyEnv:string, Iv:CryptoJS.lib.WordArray){
+    var key = CryptoJS.enc.Utf8.parse(keyEnv);
+    var encrypted = CryptoJS.AES.encrypt(value, key,
     {
         keySize: 128 / 8,
-        iv: iv,
+        iv: Iv,
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
     });
@@ -457,18 +612,34 @@ export class TestJsComponent implements OnInit,OnDestroy {
 
 
   //The get method is use for decrypt the value.
-  get(keys:string, value:string){
-    var key = CryptoJS.enc.Utf8.parse(keys);
-    var iv = CryptoJS.enc.Utf8.parse(keys);
+  get(value:string,keyEnv:string,Iv:CryptoJS.lib.WordArray){
+    var key = CryptoJS.enc.Utf8.parse(keyEnv);
     var decrypted = CryptoJS.AES.decrypt(value, key, {
         keySize: 128 / 8,
-        iv: iv,
+        iv: Iv,
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
     });
-
     return decrypted.toString(CryptoJS.enc.Utf8);
+
   }
+
+  Encryption(number:string) {
+    console.log(number);
+    var key = CryptoJS.enc.Utf8.parse('7061737323313233');
+        var iv = CryptoJS.enc.Utf8.parse('7061737323313233');
+        var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(number), key,
+            {
+                keySize: 128 / 8,
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+        return encrypted.toString();
+  }
+
+
+
 
   
 }

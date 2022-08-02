@@ -32,6 +32,8 @@ export class HireComponent implements OnInit {
   constructor(private formBuilder:FormBuilder, private jobOfferService:JoboffersService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+
+    //Poti sa folosesti acel ma-select din angular materials ca sa pui skill-urile aici
     this.myForm = this.formBuilder.group({
       description:['',[Validators.required]],
       location:['',Validators.required],

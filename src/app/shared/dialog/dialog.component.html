@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Add Skill</h1>
+<div mat-dialog-content>
+    <form [formGroup]="skillForm">
+        <mat-form-field appearance="legacy">
+            <mat-label>Skill Name</mat-label>
+            <input formControlName="SkillName" matInput placeholder="Gardener">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Description</mat-label>
+            <textarea formControlName="Description" matInput placeholder="Maintain the beauty of plants, outdoor grounds and trees in a garden."></textarea>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 0.4vw;" mat-raised-button color="primary"(click)="send()" >{{actionBtn}}</button>
+</div>
+
+  
+  

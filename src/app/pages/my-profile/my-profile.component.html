@@ -15,6 +15,9 @@
                       <p style="display: inline-block; padding-right: 1vw;" class="text-muted font-size-sm" id="myWallet">{{user.walletAddress}}</p>
                       <button (click)="copyWalletAdress()" style="display: inline-block;"  type="button" class="btn btn-outline-primary" ><fa-icon [icon]="faclipboard"></fa-icon></button>
                     </div>
+                    <div class="mt-3">
+                      {{user.amount | currency:'EUR'}}
+                    </div>
                   </div>
                 </div>
               </div>

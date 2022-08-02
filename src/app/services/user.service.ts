@@ -8,22 +8,6 @@ import { User } from '../interfaces/user';
   providedIn: 'root'
 })
 export class UserService {
-  public user: User = {
-    id : 0,
-    username : '',
-    email : '',
-    firstName :'',
-    lastName : '',
-    password: '',
-    location: '',
-    walletAddress:'',
-    aboutMe : '',
-    address:'',
-    phone:'',
-    title:'',
-    role: -1,
-    birthday: new Date()
-  }
   
   
 
@@ -52,8 +36,16 @@ export class UserService {
       this.baseUrl + "/api/users/updatemyuser",
       data
     )
-
     return result;
   }
+
+  testEncryption(data:any){
+      return this.http.post(
+        this.baseUrl + "/api/users/profile/4",
+        data
+      )
+  }
+
+  
 
 }

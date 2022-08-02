@@ -1,0 +1,35 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+
+  .truncate-cell {
+    max-width: 15vw; /* feel free to include any other value */
+    white-space: normal;
+    overflow:auto;
+    text-overflow:ellipsis;
+  }
+  
+  .container{
+    max-width: 90vw;
+    margin: 0 auto;
+    margin-bottom: 10vh;
+  }
+
+  .mat-toolbar span {
+    margin-left: 4vw;
+  }
+
+  .mat-toolbar button {
+    margin-right: 47.8vw;
+  }
+  

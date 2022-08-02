@@ -13,6 +13,10 @@ import { JobOfferPageComponent } from './pages/job-offer-page/job-offer-page.com
 import { TestJsComponent } from './pages/test-js/test-js.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { SkillsComponent } from './pages/skills/skills.component';
+
 
 const routes: Routes = [
   {
@@ -45,7 +49,8 @@ const routes: Routes = [
   },
   {
     path:'hire',
-    component:HireComponent
+    component:HireComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'jobofferpage',
@@ -62,7 +67,24 @@ const routes: Routes = [
   {
     path:'editprofile',
     component:EditProfileComponent
-  }
+  },
+  {
+    path:'unauthorized',
+    component:UnauthorizedComponent
+  },
+  {
+    path:'notfound',
+    component:NotfoundComponent
+  },
+  {
+    path:'skills',
+    component:SkillsComponent
+  },
+  { 
+    path: '**', 
+    pathMatch: 'full', 
+    component: NotfoundComponent 
+  },
 ];
 
 @NgModule({

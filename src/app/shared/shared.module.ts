@@ -6,6 +6,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobofferInfoComponent } from './joboffer-info/joboffer-info.component';
+import { DialogUserComponent } from './dialog-user/dialog-user.component';
 
 
 @NgModule({

@@ -16,6 +16,7 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { SkillsComponent } from './pages/skills/skills.component';
+import { UsersComponent } from './pages/users/users.component';
 
 
 const routes: Routes = [
@@ -79,6 +80,10 @@ const routes: Routes = [
   {
     path:'skills',
     component:SkillsComponent
+  },
+  {
+    path:'users',
+    component:UsersComponent
   },
   { 
     path: '**', 

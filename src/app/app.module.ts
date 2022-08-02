@@ -36,12 +36,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import {MatInputModule} from '@angular/material/input'; 
 import {MatTableModule} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UsersComponent } from './pages/users/users.component';
+import { DialogUserComponent } from './shared/dialog-user/dialog-user.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +60,8 @@ import { UsersComponent } from './pages/users/users.component';
     NotfoundComponent,
     SkillsComponent,
     DialogComponent,
-    UsersComponent
+    UsersComponent,
+    DialogUserComponent
   ],
   imports: [
     BrowserModule,

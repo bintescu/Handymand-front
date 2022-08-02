@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -18,7 +18,13 @@ export class UserService {
 
   }
 
+  private publicHeaders = {
+    headers:new HttpHeaders({
+      'content-type':'application/json'
+    })
+  }
 
+  
   getMyuser(){
     return  this.http.get(
       this.baseUrl + "/api/users/myuser"
@@ -46,6 +52,42 @@ export class UserService {
       )
   }
 
+  getAll(){
+    return this.http.get(
+      this.baseUrl + '/api/users/allforadmin'
+    )
+  }
+
+  update(data:any){
+    return this.http.put(
+      this.baseUrl + '/api/users/update',
+      data,
+      this.publicHeaders
+    )
+  }
+
+  block(data:any){
+    return this.http.put(
+      this.baseUrl + '/api/users/block',
+      data,
+      this.publicHeaders
+    )
+  }
+
+  delete(data:any){
+
+    const options = {
+      headers: new HttpHeaders({
+          'content-Type': 'application/json'
+      }),
+      body: data
+  } 
+
+    return this.http.delete(
+      this.baseUrl + '/api/users/delete',
+      options
+    )
+  }
   
 
 }

@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Edit User</h1>
+<div mat-dialog-content>
+    <form [formGroup]="userForm">
+        <mat-form-field appearance="legacy">
+            <mat-label>Email</mat-label>
+            <input formControlName="Email" matInput placeholder="your.email@mail.com">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Wallet Address</mat-label>
+            <input formControlName="WalletAddress" matInput placeholder="xrf...">
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>Address</mat-label>
+            <input formControlName="Address" matInput placeholder="User address">
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>Title</mat-label>
+            <input formControlName="Title" matInput placeholder="User title">
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>About Me</mat-label>
+            <textarea formControlName="AboutMe" matInput placeholder="Maintain the beauty of plants, outdoor grounds and trees in a garden."></textarea>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 0.4vw;" mat-raised-button color="primary"(click)="updateUser()" >Update</button>
+</div>
+
+  
+  

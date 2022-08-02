@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
 
       if(IdLoggedIn != null){
         this.router.navigate(['/hire']).then(() => {
-          window.location.reload();
+          //window.location.reload();
         });
       }
     }

@@ -38,8 +38,8 @@ export class JoboffersService {
   createJobOfferForm(data:FormData){
     console.log('Am primit data:')
     console.log(data)
-    console.log(' Files in createjoboffer')
-    console.log(data.get('files'));
+    console.log(' IdSkills')
+    console.log(data.get('IdSkills'));
 
     return this.http.post(
       this.baseUrl + "/api/JobOffer/create",
@@ -55,6 +55,12 @@ export class JoboffersService {
       this.baseUrl + "/api/JobOffer/getById",
       data,
       this.publicHeaders);
+  }
+
+  getSkills(){
+    return this.http.get(
+      this.baseUrl + '/api/skills/all'
+    );
   }
 
 }

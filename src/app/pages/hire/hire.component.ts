@@ -21,6 +21,8 @@ import {
     // animation triggers go here
   ]
 })
+
+
 export class HireComponent implements OnInit {
 
   faStar = faStar;
@@ -31,6 +33,9 @@ export class HireComponent implements OnInit {
 
   constructor(private formBuilder:UntypedFormBuilder, private jobOfferService:JoboffersService, private cd: ChangeDetectorRef) {}
 
+  skills:Skill[] = [];
+
+
   ngOnInit(): void {
 
     //Poti sa folosesti acel ma-select din angular materials ca sa pui skill-urile aici
@@ -40,11 +45,24 @@ export class HireComponent implements OnInit {
       title : ['',[Validators.maxLength(25),Validators.required]],
       lowPriceRange: ['',Validators.required],
       highPriceRange:['',Validators.required],
-      files:[]
+      files:[],
+      idSkills:[]
     })
 
     this.onFormChanges();
 
+    const observer = {
+      next : (result:any) => {
+        console.log('skillurile:')
+        this.skills = result.data;
+        console.log(this.skills)
+      },
+      error: (err:any) => {
+        console.log('eroare in get skills pe create job offer:')
+        console.log(err)
+      }
+    }
+    this.jobOfferService.getSkills().subscribe(observer);
   }
 
   reset(element:any) {
@@ -149,6 +167,9 @@ export class HireComponent implements OnInit {
       formData.append('lowPriceRange',this.myForm.get('lowPriceRange')?.value);
       formData.append('highPriceRange',this.myForm.get('highPriceRange')?.value);
 
+
+      formData.append('IdSkills',1002);
+      formData.append('IdSkills',2003);
       var allFiles = this.myForm.get('files')?.value;
 
       //https://codeburst.io/uploading-multiple-files-with-angular-and-net-web-api-7560303d9345
@@ -199,4 +220,9 @@ export class HireComponent implements OnInit {
         }
   }
 
+}
+
+class Skill {  
+  id!: number;  
+  skillName! : string;   
 }

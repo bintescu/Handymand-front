@@ -14,8 +14,8 @@
 
   .truncate-cell {
     max-width: 15vw; /* feel free to include any other value */
-    white-space: normal;
-    overflow:auto;
+    white-space: nowrap;
+    overflow:hidden;
     text-overflow:ellipsis;
   }
   

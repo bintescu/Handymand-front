@@ -6,11 +6,23 @@
 </div>
 
 
+
+
+
 <div class="wrapper fadeInDown">
     <div id="formContent">
 
         <p class="form-group tellUs">Tell us what you need done</p>
             <form [formGroup] = "myForm" (ngSubmit)="createJobOffer()">
+
+                <div>
+                    <select class="form-select" aria-label="Default select example" multiple>
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                </div>
 
                 <div class="form-group fadeIn first" style="margin-top: 2vh; margin-bottom: 2vh;">
                     <label id="titleL">Title</label>
@@ -50,10 +62,11 @@
                         [ngClass]="myForm.controls['location'].errors && ( myForm.controls['location'].dirty || myForm.controls['location'].touched ) ? 'is-invalid' :''">
                     </div>
                 </div>
-            
+
                 <ng-container *ngIf="myForm.controls['location'].errors?.['required'] && (myForm.controls['location'].dirty || myForm.controls['location'].touched)">
                     <small class="formError">Location can not be empty!</small>
                 </ng-container>
+
 
                 <div class="form-group fadeIn third" style="margin-top: 2vh; margin-bottom: 2vh;">
                     <label id="locatL">Images</label>

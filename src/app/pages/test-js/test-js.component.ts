@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { first, from, fromEvent, interval, map, multicast, Observable, of, Subject, Subscriber, refCount, Subscription,share } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
-import { Byte } from '@angular/compiler/src/util';
-import { createPipe } from '@angular/compiler/src/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,7 +15,7 @@ export class TestJsComponent implements OnInit,OnDestroy {
   constructor(private userService:UserService) { }
   private keyEnv: string = environment.key;
   private IvEnv:CryptoJS.lib.WordArray  = CryptoJS.lib.WordArray.random(16);
-  private IvEnv2:Byte[] = [108, 189, 156, 48, 55, 144, 182, 132, 157, 11, 66, 223, 241, 207, 210, 82];
+  private IvEnv2:number[] = [108, 189, 156, 48, 55, 144, 182, 132, 157, 11, 66, 223, 241, 207, 210, 82];
   subscription:any = null;
 
   ngOnInit(): void {
@@ -447,7 +445,7 @@ export class TestJsComponent implements OnInit,OnDestroy {
   }
 
 
-  stringFromUTF8Array(data:Byte[])
+  stringFromUTF8Array(data:number[])
   {
     const extraByteMap = [ 1, 1, 1, 1, 2, 2, 3, 0 ];
     var count = data.length;
@@ -480,7 +478,7 @@ export class TestJsComponent implements OnInit,OnDestroy {
   }
 
 
-  bin2String(array:Byte[]) {
+  bin2String(array:number[]) {
     var result = "";
     for (var i = 0; i < array.length; i++) {
       result += String.fromCharCode(array[i]);
@@ -529,7 +527,7 @@ export class TestJsComponent implements OnInit,OnDestroy {
   }
 
 
-  byteArrayToWordArray(ba:Byte[]) {
+  byteArrayToWordArray(ba:number[]) {
     var wa:number[] = [],
       i;
     for (i = 0; i < ba.length; i++) {
@@ -553,7 +551,7 @@ export class TestJsComponent implements OnInit,OnDestroy {
     console.log('key:',this.keyEnv)
     console.log('Iv word array:',this.IvEnv)
 
-    var bytearray:Byte[] = this.wordArrayToByteArray(this.IvEnv,16);
+    var bytearray:number[] = this.wordArrayToByteArray(this.IvEnv,16);
 
     console.log('Iv byte array:',bytearray);
 

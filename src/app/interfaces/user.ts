@@ -1,4 +1,4 @@
-import { Byte } from "@angular/compiler/src/util";
+
 
 export interface User {
     id : number|null;
@@ -16,6 +16,6 @@ export interface User {
     title:string|null;
     role: number|null;
     birthday:Date|null;
-    iv:Byte[]|null;
+    iv:number[]|null;
 
 }

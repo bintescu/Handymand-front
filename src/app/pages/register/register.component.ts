@@ -1,9 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { Byte } from '@angular/compiler/src/util';
 import { User } from 'src/app/interfaces/user';
 
 
@@ -17,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   private IvEnv:CryptoJS.lib.WordArray  = CryptoJS.lib.WordArray.random(16);
   private keyEnv: string = environment.key;
-  public myForm!:FormGroup;
+  public myForm!:UntypedFormGroup;
   @ViewChild("countdown")
   myDiv!: ElementRef;
 
@@ -41,7 +40,7 @@ export class RegisterComponent implements OnInit {
     iv:null,
     amount:null
   }
-  constructor(private formBuilder:FormBuilder, private authService:AuthService,private router:Router) { }
+  constructor(private formBuilder:UntypedFormBuilder, private authService:AuthService,private router:Router) { }
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
@@ -63,7 +62,7 @@ export class RegisterComponent implements OnInit {
       let lastName:string = this.authService.set(this.myForm.controls["lastName"].value,this.keyEnv,this.IvEnv);
       let password:string = this.authService.set(this.myForm.controls["password"].value,this.keyEnv,this.IvEnv);
       let birthday = this.myForm.controls["birthday"].value;
-      var bytearray:Byte[] = this.authService.wordArrayToByteArray(this.IvEnv,16);
+      var bytearray:number[]= this.authService.wordArrayToByteArray(this.IvEnv,16);
 
       this.user.email = email;
       this.user.firstName = firstName;

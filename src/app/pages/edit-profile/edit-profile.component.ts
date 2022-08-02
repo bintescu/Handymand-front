@@ -3,7 +3,7 @@ import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { ClipboardService } from 'ngx-clipboard'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -38,14 +38,14 @@ export class EditProfileComponent implements OnInit {
   joiningDate!:string;
   birthdayString!:string;
   birthdayPlaceHolder!:string;
-  public updateForm!:FormGroup;
+  public updateForm!:UntypedFormGroup;
   incorrectFiles:string[] = []
   incorrectFile = false;
   selectedFile!: File;
 
   @ViewChild("profileImage") profileImage!: ElementRef;
 
-  constructor(private formBuilder:FormBuilder,private userService:UserService, private clipboard:ClipboardService, private router:Router) { }
+  constructor(private formBuilder:UntypedFormBuilder,private userService:UserService, private clipboard:ClipboardService, private router:Router) { }
 
 
   ngOnInit(): void {

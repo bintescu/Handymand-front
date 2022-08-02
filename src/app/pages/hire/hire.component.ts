@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { JoboffersService } from 'src/app/services/joboffers.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,12 +24,12 @@ import {
 export class HireComponent implements OnInit {
 
   faStar = faStar;
-  public myForm!:FormGroup;
+  public myForm!:UntypedFormGroup;
   popup = false;
   incorrectFiles:string[] = []
   incorrectFile = false;
 
-  constructor(private formBuilder:FormBuilder, private jobOfferService:JoboffersService, private cd: ChangeDetectorRef) {}
+  constructor(private formBuilder:UntypedFormBuilder, private jobOfferService:JoboffersService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
 
@@ -118,8 +118,8 @@ export class HireComponent implements OnInit {
   
   onFormChanges():void{
 
-    const control1 = <FormControl>this.myForm.get('lowPriceRange');
-    const control2 = <FormControl>this.myForm.get('highPriceRange');
+    const control1 = <UntypedFormControl>this.myForm.get('lowPriceRange');
+    const control2 = <UntypedFormControl>this.myForm.get('highPriceRange');
 
     control2.valueChanges.subscribe((value: number) => {
       if (value < control1.value) {

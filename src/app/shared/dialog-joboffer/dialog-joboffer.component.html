@@ -1,0 +1,62 @@
+
+<mat-card class="example-card">
+  <button mat-icon-button aria-label="close dialog" mat-dialog-close style="float: right;">
+    <mat-icon>close</mat-icon>
+  </button>
+    <mat-card-header>
+      <div mat-card-avatar  >
+        <img #profileImage class="rounded-circle" id="profileImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" >
+      </div>
+
+      <mat-card-title>{{title}}</mat-card-title>
+      <mat-card-subtitle>{{creationName}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <div  class="slideshow-container">
+      <div *ngIf="noImages; else elseBlock">
+        <div *ngFor="let index of noImages;" class="mySlides">
+          <div class="numbertext">{{index}} / {{noImages.length}}</div>
+          <img id="slideImage{{index}}"  mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+        </div>
+      </div>
+
+      <ng-template #elseBlock>
+
+          <div class="mySlides">
+            <div class="numbertext">1 / 3</div>
+            <img   mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+            <div class="text">Generic Image</div>
+          </div>
+    
+          <div class="mySlides">
+            <div class="numbertext">2/ 3</div>
+            <img  mat-card-image src="../../../assets/handyman.jpg">
+            <div class="text">Generic Image</div>
+          </div>
+    
+          <div class="mySlides">
+            <div class="numbertext">3 / 3</div>
+            <img mat-card-image src="../../../assets/gardening.jpg" alt="Photo of a Shiba Inu">
+            <div class="text">Generic Image</div>
+          </div>
+
+      </ng-template>
+
+          
+      <a class="prev" (click)="plusSlide(-1)">&#10094;</a>
+      <a class="next"(click)="plusSlide(1)">&#10095;</a>
+  </div>
+
+    <mat-card-content>
+      <p>
+        {{description}}
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-button (click)="close()">CLOSE</button>
+      <button mat-button>VIEW</button>
+    </mat-card-actions>
+    
+  </mat-card>
+  

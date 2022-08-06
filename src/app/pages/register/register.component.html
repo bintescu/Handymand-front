@@ -6,6 +6,11 @@
 
 
 <div class="wrapper fadeInDown">
+    <div id="formHeader">
+        <p>
+            Log on
+        </p>
+    </div>
     <div id="formContent">
 
             <form [formGroup] = "myForm" (ngSubmit)="doRegister()">
@@ -58,10 +63,14 @@
                 </div>
 
             </form>
-            <p class="form-group">By creating an account, you agree to our <a href="">Terms of Use</a> and our <a href="">Privacy Policy</a>.</p>
-            <hr>
-            <p>Already have an account? <a href="login">Sign in</a></p>
+
+            <div id="formFooter">
+                <p>By creating an account, you agree to our <a href="">Terms of Use</a> and our <a href="">Privacy Policy</a>.</p>
+                <hr>
+                <p>Already have an account? <a href="login">Sign in</a></p>
+             </div>
      </div>
+
 
 </div>
 

@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { ClipboardService } from 'ngx-clipboard'
 import { FormBuilder } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-my-profile',
@@ -36,16 +37,38 @@ export class MyProfileComponent implements OnInit {
   dateCreated!:Date;
   joiningDate!:string;
   birthdayString!:string;
-  profileImage : File | undefined;
 
   @ViewChild('profileImage') profileImageElement!: ElementRef;
-  constructor(private userService:UserService, private clipboard: ClipboardService) { }
+  constructor(private userService:UserService,
+     private clipboard: ClipboardService,
+     private sanitizer:DomSanitizer) { }
 
+
+     @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+      localStorage.setItem("name","ss");
+      event.returnValue = false;
+    }
+
+    
   ngOnInit(): void {
 
+    console.log(localStorage.getItem("name"));
     this.userService.getMyProfilePicture().subscribe((response:any) => {
+      //var blob = new Blob([new Uint8Array(response.data)], { type: 'image' });
+      // var blob = new Blob([response.data], { type: "image" });
+      // let profileAddres:string = URL.createObjectURL(blob);
+      // console.log(profileAddres)
+
+      // let objectUrl = "data:image;base64," + response.data;
+      // let safeUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+      // this.profileImage = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+      // console.log(this.profileImage)
       this.profileImageElement.nativeElement.src = "data:image;base64," + response.data;
+      //this.profileImageElement.nativeElement.src = profileAddres;
+
     })
+
+    
     const observer = {
       next: (rezult:any) => {
         this.user = rezult.data;

@@ -29,17 +29,17 @@
       <li *ngIf="!loginName" class="nav-item">
         <a class="nav-link" href="register">Register</a>
       </li>
-      <li *ngIf="loginName" class="nav-item" style="margin-left: 44vw;">
-        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <li *ngIf="loginName" class="nav-item" style="margin-left: 42vw;">
+        <div class="collapse navbar-collapse" id="navbarNavBlueDropdown">
           <ul>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarBlueDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               
                 <img #profileImage id="profileImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                    
                 <strong>{{loginName}}</strong>
               </a>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarBlueDropdownMenuLink">
                 <li><a class="dropdown-item" (click) = "myProfile()">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Pending Offers</a></li>
                 <li><a class="dropdown-item" (click)="signOut()" href="#">Sign Out</a></li>

@@ -1,26 +1,50 @@
 <div>
     <figure class="card card-product-grid">
-        <a class="btn-overlay" (click)="showDetails2()" ><i class="fa fa-search-plus"></i> Quick view</a>
+        <a style="cursor: pointer;" class="btn-overlay" (click)="showDetails()" ><i class="fa fa-search-plus"></i> Quick view</a>
         <figcaption class="info-wrap">
             <div class="fix-height">
-                <a (click)="showProfile()" class="title">{{creationName}}</a>
-                <p class="card-text">{{title}}</p>
-                <div class="price-wrap mt-2">
-                    <span class="price">Payment : {{lowPrice}} - {{highPrice}} RON / h</span>
-                </div> <!-- price-wrap.// -->
+                <p class="title">{{title}}</p>
+
+                <div class="info">
+                    <span>Address: {{location}}</span>
+                </div>
+
+                <div class="info">
+                    <span >Payment : {{lowPrice}} - {{highPrice}} RON / h</span>
+                </div>
+
+                <div *ngIf = "city != null" class="info">
+                    <span>City : {{city.name}}</span>
+                </div>
+
+
+                <div *ngIf = "skills != null" class="info" >
+                    Skills: 
+                    <div class="skills">
+                        <div  *ngFor="let skill of skills" class="skillItem">{{skill.skillName}}</div>
+                    </div>
+                </div>
             </div>
             <div class="viewButton">
-                <a (click)="showDetails2()" class="btn btn-block btn-primary">View Job</a>	
+                <a (click)="viewJob()" class="btn btn-block btn-primary">View Job</a>	
+
             </div>
 
         </figcaption>
-        <div *ngIf="daysAgo != 0; else elseBlock" class="card-footer text-muted">
-            {{daysAgo}} days ago
-        </div>
-        <ng-template #elseBlock>
-            <div class="card-footer text-muted">
-                Today
+
+
+        <div class="card-footer" style=" text-align: center;">
+            <p style="cursor: pointer;"  (click)="showProfile()">{{creationName}}</p>
+            <div *ngIf="daysAgo != 0; else elseBlock" class="text-muted">
+    
+                {{daysAgo}} days ago
             </div>
-        </ng-template>
+            <ng-template #elseBlock>
+                <div class="text-muted">
+                    Today
+                </div>
+            </ng-template>
+        </div>
+
     </figure>
 </div>

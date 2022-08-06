@@ -31,9 +31,34 @@ export class UserService {
     );
   }
 
+  getUser(data:any){
+    return this.http.post(
+      this.baseUrl + "/api/users/getuser",
+      data,
+      this.publicHeaders
+    )
+  }
+
+
   getMyProfilePicture(){
     return this.http.get(
       this.baseUrl + '/api/users/myuserprofileImage'
+    );
+  }
+
+  getTestPicture(){
+    return this.http.get(
+      this.baseUrl + '/api/JobOffer/getimagetest',
+      {
+        responseType:"blob"
+      }
+    )
+  }
+
+  getUserProfilePicture(data:any){
+    return this.http.post(
+      this.baseUrl + '/api/users/userprofileImage',
+      data
     );
   }
 

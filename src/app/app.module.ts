@@ -23,8 +23,8 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { SkillsComponent } from './pages/skills/skills.component';
-
-
+import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,6 +40,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UsersComponent } from './pages/users/users.component';
 import { DialogUserComponent } from './shared/dialog-user/dialog-user.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { DialogJobofferComponent } from './shared/dialog-joboffer/dialog-joboffer.component';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +65,8 @@ import { DialogUserComponent } from './shared/dialog-user/dialog-user.component'
     SkillsComponent,
     DialogComponent,
     UsersComponent,
-    DialogUserComponent
+    DialogUserComponent,
+    DialogJobofferComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,11 @@ import { DialogUserComponent } from './shared/dialog-user/dialog-user.component'
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatCardModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,3 +1,6 @@
+import { Skill } from "./skill"
+import { City } from "./city"
+
 export interface JobOffer {
     idJobOffer : number
     idCreationUser : number,
@@ -10,5 +13,8 @@ export interface JobOffer {
     lowPriceRange: number,
     highPriceRange: number,
     dateCreated: Date,
-    daysAgo:number
+    daysAgo:number,
+    skills:Skill[],
+    city:City,
+    noImages:number | null
 }

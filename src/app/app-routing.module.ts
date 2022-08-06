@@ -39,7 +39,7 @@ const routes: Routes = [
     canActivate:[HasPermissionGuard],
   },
   {
-    path:'profile/:id',
+    path:'profile',
     component: ProfileComponent
   },{
     path:'home',

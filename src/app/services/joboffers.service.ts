@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { JobOffer } from '../interfaces/job-offer';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,17 +16,29 @@ export class JoboffersService {
     })
   }
 
-  private privateHeaderCreateForm ={
-    headers:new HttpHeaders({
-      Authorization : 'Bearer ' + localStorage.getItem('token'),
-    })
+  constructor(private http:HttpClient, private userService:UserService) { 
   }
 
-  constructor(private http:HttpClient) { 
+  getAllJobOffers(pageNr:number,noElements:number, data:any){
+    if(pageNr < 0 || noElements == 0){
+      return this.http.post(this.baseUrl + '/api/JobOffer/allJobOffers',
+      data,
+      this.publicHeaders);
+    }
+    else{
+      return this.http.post(
+      this.baseUrl + '/api/JobOffer/allJobOffers?pageNr=' + pageNr + "&noElements=" + noElements,
+      data,
+      this.publicHeaders);
+    }
+
   }
 
-  getAllJobOffers(){
-    return this.http.get(this.baseUrl + '/api/JobOffer/allJobOffers',this.publicHeaders);
+  getTotalLength(){
+    return this.http.get(
+      this.baseUrl + '/api/JobOffer/total',
+      this.publicHeaders
+    )
   }
 
   createJobOffer(data:JobOffer){
@@ -61,6 +74,26 @@ export class JoboffersService {
     return this.http.get(
       this.baseUrl + '/api/skills/all'
     );
+  }
+
+  getCities(){
+    return this.http.get(
+      this.baseUrl + '/api/JobOffer/allcities'
+    )
+  }
+
+  getUserProfilePicture(data:any){
+    return this.userService.getUserProfilePicture(data);
+  }
+
+  getImages(idJob:number,id:number){
+    return this.http.get(
+      this.baseUrl + '/api/JobOffer/getimage/'+ idJob + "?id=" + id,
+      {
+        responseType:"blob"
+      }
+      ) 
+
   }
 
 }

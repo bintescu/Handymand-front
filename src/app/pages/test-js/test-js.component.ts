@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { first, from, fromEvent, interval, map, multicast, Observable, of, Subject, Subscriber, refCount, Subscription,share } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
@@ -11,6 +11,30 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TestJsComponent implements OnInit,OnDestroy {
 
+  private storedEncrypted!:string|null;
+  private storedIv!:string|null;
+  public name!:string;
+
+    @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+    console.log("Processing beforeunload...");
+
+
+    console.log("salvam in localStorage prima data name")
+    localStorage.setItem('name',this.name);
+    this.storedEncrypted = this.set(this.name,this.keyEnv,this.IvEnv);
+
+    this.storedIv = CryptoJS.enc.Base64.stringify(this.IvEnv);
+
+
+    
+    localStorage.setItem('storedEncrypted',this.storedEncrypted);
+    localStorage.setItem('storedIv',this.storedIv);
+
+    return false;
+
+  }
+
+
 
   constructor(private userService:UserService) { }
   private keyEnv: string = environment.key;
@@ -19,7 +43,39 @@ export class TestJsComponent implements OnInit,OnDestroy {
   subscription:any = null;
 
   ngOnInit(): void {
-    
+    console.log("culegem din localstorage name:");
+    console.log(localStorage.getItem("name"));
+
+     console.log('culegem din localstorage criptarea si cheia:')
+
+     this.storedEncrypted = localStorage.getItem('storedEncrypted');
+     this.storedIv = localStorage.getItem('storedIv');
+
+     localStorage.removeItem("name");
+     localStorage.removeItem("storedEncrypted");
+     localStorage.removeItem("storedIv");
+     console.log('am cules din localstorage:',this.storedEncrypted,this.storedIv);
+
+     if(this.storedEncrypted != null && this.storedIv != null)
+     {
+
+
+      const utf8Encode = new TextEncoder();
+      const byteArr = utf8Encode.encode(this.storedIv);
+      var list:number[] = [];
+
+      byteArr.forEach((elem:number) => {
+        list.push(elem);
+      })
+      var wordIv = this.byteArrayToWordArray(list);
+
+      var getIv = CryptoJS.enc.Base64.parse(this.storedIv);
+      var result = this.get(this.storedEncrypted,this.keyEnv,getIv);
+      console.log("result :")
+      console.log(result);
+     }
+
+
     // var observer = {
     //   next(val: any) { console.log(val)},
     //   error(e:any) { console.log(e)},
@@ -435,6 +491,12 @@ export class TestJsComponent implements OnInit,OnDestroy {
 
     //TREBUIE FOLOSIT FARA SPATIU!!
 
+    var encrypt = this.set("1022",this.keyEnv,this.IvEnv);
+    console.log(this.wordArrayToByteArray(this.IvEnv,16))
+    console.log(encrypt);
+    console.log(this.get(encrypt,this.keyEnv,this.IvEnv));
+
+
 
   }
 
@@ -443,6 +505,7 @@ export class TestJsComponent implements OnInit,OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
 
 
   stringFromUTF8Array(data:number[])
@@ -536,6 +599,8 @@ export class TestJsComponent implements OnInit,OnDestroy {
   
     return CryptoJS.lib.WordArray.create(wa, ba.length);
   }
+
+
 
 
   testEncryption(){

@@ -8,21 +8,13 @@
 
 
 
-
 <div class="wrapper fadeInDown">
-    <div id="formContent">
-
+    <div id="formHeader">
         <p class="form-group tellUs">Tell us what you need done</p>
+    </div>
+    <div id="formContent">
             <form [formGroup] = "myForm" (ngSubmit)="createJobOffer()">
 
-                <div>
-                    <select class="form-select" aria-label="Default select example" multiple>
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                </div>
 
                 <div class="form-group fadeIn first" style="margin-top: 2vh; margin-bottom: 2vh;">
                     <label id="titleL">Title</label>
@@ -54,8 +46,24 @@
                     <small class="formError">Description can not be empty!</small>
                 </ng-container>
 
-            
-                <div class="form-group fadeIn third" style="margin-top: 2vh; margin-bottom: 2vh;">
+                <div class="form-group fadeIn third" style="margin-top: 2vh; margin-bottom: 2vh;" >
+                    <label id="cityL">City</label>
+                    <div class="inputForm">
+                        <mat-select class="form-control"  formControlName="cityId"
+                        [ngClass]="myForm.controls['cityId'].errors && ( myForm.controls['cityId'].dirty || myForm.controls['cityId'].touched) ? 'is-invalid' :''">
+                            <mat-option *ngFor="let city of cities" [value]="city.id">
+                                {{city.name}}
+                            </mat-option>
+                          </mat-select>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="myForm.controls['cityId'].errors?.['required'] && (myForm.controls['cityId'].dirty || myForm.controls['cityId'].touched )">
+                    <small class="formError">City can not be empty !</small>
+                </ng-container>
+
+
+                <div class="form-group fadeIn fourth" style="margin-top: 2vh; margin-bottom: 2vh;">
                     <label id="locatL">Location</label>
                     <div class="inputForm">
                         <input class="form-control" formControlName="location"
@@ -68,7 +76,9 @@
                 </ng-container>
 
 
-                <div class="form-group fadeIn third" style="margin-top: 2vh; margin-bottom: 2vh;">
+
+
+                <div class="form-group fadeIn fourth" style="margin-top: 2vh; margin-bottom: 2vh;">
                     <label id="locatL">Images</label>
                     <div class="inputFormFile">
                         <input #fileInput type="file" (change)="onFileSelect($event)" class="form-control" formControlName="files" multiple
@@ -88,7 +98,18 @@
                 </ng-container>
 
 
-                <div class="form-group fadeIn third" style="margin-top: 4vh; margin-bottom: 2vh;">
+                <div #removeClass class="fadeIn fifth" style="margin-top: 2vh; margin-bottom: 2vh;">
+                    <label id="skillsL">Skills</label>
+                    <div class="inputForm">
+                        <ng-multiselect-dropdown 
+                        [settings]="dropdownSettings"
+                        [data]="dropdownList"
+                        formControlName="skills">
+                    </ng-multiselect-dropdown>
+                    </div>
+                </div>
+
+                <div class="form-group fadeIn sixth" style="margin-top: 4vh; margin-bottom: 2vh; z-index: 0;">
                     <label>Payment Amount Range per Hour</label>
                     <div class="flexContainer">
                         <label id="fromL">From:</label>
@@ -128,13 +149,16 @@
                 </div>
 
             </form>
+
             <hr>
-            <div class="form-group">
-                <p class="form-group">Contact skilled freelancers within minutes.</p>
-                <p class="form-group"> View profiles, ratings, portfolios and chat with them.</p>
-                <p class="form-group"> Pay the freelancer only when you are 100% satisfied with their work.</p>
+
+            <div class="formFooter">
+                <p >Contact handymans within minutes.</p>
+                <p > View profiles, ratings, portfolios and contact them.</p>
+                <p> Pay the handyman only when you are 100% satisfied with their work.</p>
             </div>
      </div>
+
 </div>
 
 
@@ -146,8 +170,8 @@
             <div class="col-md-12 text-white text-center">
                 <h2 class="section-title "> What Others Say About Us</h2>
                 <p class="section-sub-title">
-                    We are a passionate digital design agency that specializes in beautiful and easy-to-
-                    <br> use digital design &amp; web development services.
+                    The only on-demand handyman service platform where trust is the main objective.
+                    <br> decentralization of trust &amp; turning time into money.
                 </p>
             </div>
         </div>
@@ -167,9 +191,9 @@
                 
                 <div class="user-content">
                     
-                    <h5 class="mb-0">Bruce Hardy</h5>
-                    <span>Software Developer</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <h5 class="mb-0">Andreea Ionescu</h5>
+                    <span>Babysitter</span>
+                    <p>My passion has always been caring for others, and through Handymand I managed to turn my passion into a career and thus formed a generous clientele. I love what I do.</p>
                     
                 </div>
                 
@@ -198,9 +222,9 @@
                 
                 <div class="user-content">
                     
-                    <h5 class="mb-0">Mark Smith</h5>
-                    <span>Web Developer</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <h5 class="mb-0">Mihai Voicescu</h5>
+                    <span>Teacher</span>
+                    <p>I am both a handyman and a client of this platform.It helped me to offer meditation services to a larger number of people. At the same time, I found some people to help me with household things.</p>
                     
                 </div>
                 
@@ -229,9 +253,9 @@
                 
                 <div class="user-content">
                     
-                    <h5 class="mb-0">Veera  Duncan</h5>
-                    <span>Software Architect</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <h5 class="mb-0">George Duncan</h5>
+                    <span>Interior designer</span>
+                    <p>A new and very useful concept. Already my client portfolio has grown exponentially.</p>
                     
                 </div>
                 
@@ -247,7 +271,6 @@
             </div>
             
         </div>
-        
         
     </div>
     

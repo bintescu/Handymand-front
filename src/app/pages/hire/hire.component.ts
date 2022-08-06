@@ -1,18 +1,13 @@
-import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { JoboffersService } from 'src/app/services/joboffers.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IDropdownSettings, } from 'ng-multiselect-dropdown';
+import { Skill } from 'src/app/interfaces/skill';
+import { City } from 'src/app/interfaces/city';
+import {MatSelectModule} from '@angular/material/select';
 
-
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
 @Component({
   selector: 'app-hire',
   templateUrl: './hire.component.html',
@@ -30,10 +25,22 @@ export class HireComponent implements OnInit {
   popup = false;
   incorrectFiles:string[] = []
   incorrectFile = false;
+  dropdownSettings:IDropdownSettings={};
+  dropdownList:Skill[] = [];
+  @ViewChild("removeClass") el!: ElementRef;
+  cities:City[] = [];
+  city!:City ;
 
   constructor(private formBuilder:UntypedFormBuilder, private jobOfferService:JoboffersService, private cd: ChangeDetectorRef) {}
 
-  skills:Skill[] = [];
+  ngAfterViewInit(){
+    console.log('element to remove class')
+    console.log(this.el);
+    setTimeout(() => {
+      this.el.nativeElement.classList.remove('fadeIn');
+      this.el.nativeElement.classList.remove('fifth');
+    }, 3000);
+  }
 
 
   ngOnInit(): void {
@@ -46,7 +53,8 @@ export class HireComponent implements OnInit {
       lowPriceRange: ['',Validators.required],
       highPriceRange:['',Validators.required],
       files:[],
-      idSkills:[]
+      skills:['',Validators.required],
+      cityId:['',Validators.required]
     })
 
     this.onFormChanges();
@@ -54,8 +62,15 @@ export class HireComponent implements OnInit {
     const observer = {
       next : (result:any) => {
         console.log('skillurile:')
-        this.skills = result.data;
-        console.log(this.skills)
+        this.dropdownList = result.data;
+        console.log(this.dropdownList)
+        this.dropdownSettings = {
+          idField: 'id',
+          textField: 'skillName',
+          enableCheckAll: true,
+          selectAllText: "Select All",
+          unSelectAllText: "UnSelect All",
+        };
       },
       error: (err:any) => {
         console.log('eroare in get skills pe create job offer:')
@@ -63,6 +78,18 @@ export class HireComponent implements OnInit {
       }
     }
     this.jobOfferService.getSkills().subscribe(observer);
+
+    const observerCities = {
+      next: (result:any) => {
+        this.cities = result.data;
+      },
+      error: (err:any) => {
+        console.log('eroare pe get all cities')
+      }
+    }
+
+    this.jobOfferService.getCities().subscribe(observerCities);
+
   }
 
   reset(element:any) {
@@ -168,8 +195,13 @@ export class HireComponent implements OnInit {
       formData.append('highPriceRange',this.myForm.get('highPriceRange')?.value);
 
 
-      formData.append('IdSkills',1002);
-      formData.append('IdSkills',2003);
+      this.myForm.get('skills')?.value.forEach( (skill:Skill) => {
+        formData.append('IdSkills',skill.id);
+      });
+
+      formData.append('cityId',this.myForm.get('cityId')?.value);
+
+
       var allFiles = this.myForm.get('files')?.value;
 
       //https://codeburst.io/uploading-multiple-files-with-angular-and-net-web-api-7560303d9345
@@ -177,8 +209,6 @@ export class HireComponent implements OnInit {
         for(let i = 0 ; i < allFiles.length; i ++){
           formData.append('files',allFiles[i]);
         }
-        console.log('FormData files : ')
-        console.log(formData.getAll('files'));
       }
 
 
@@ -220,9 +250,9 @@ export class HireComponent implements OnInit {
         }
   }
 
+
+  changeCity(event:any){
+    console.log(event.target.value);
+  }
 }
 
-class Skill {  
-  id!: number;  
-  skillName! : string;   
-}

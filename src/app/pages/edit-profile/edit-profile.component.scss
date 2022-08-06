@@ -209,13 +209,14 @@ img {
   margin-bottom: 10px;
 }
 .counter .count {
-  font-weight: 700;
+  font-weight:200;
   color: #20247b;
   margin: 0 0 5px;
 }
 .counter p {
-  font-weight: 600;
+  font-weight:600;
   margin: 0;
+  color:cadetblue;
 }
 
 .theme-color {
@@ -223,6 +224,15 @@ img {
 }
 .dark-color {
     color: #20247b;
+}
+
+.font-w-600{
+  font-weight: 600;
+}
+
+.d-flex{
+  display: flex;
+  padding-inline: 2.5vw;
 }
 
 #failedPopup{

@@ -14,13 +14,18 @@
 
 .card-product-grid .info-wrap {
     overflow: hidden;
-    /*padding: 18px 20px;*/
 }
 
 [class*='card-product'] a.title {
     color: #212529;
     display: block;
 }
+
+
+.title{
+    font-size: 20px;
+}
+
 
 .card-product-grid:hover .btn-overlay {
     opacity: 1;
@@ -47,5 +52,27 @@
 
 .fix-height{
     margin-left: 5%;
+    height: 100%;
 }
 
+.info{
+    font-size: medium;
+    padding-top: 5%;
+}
+
+.skills{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.skillItem {
+    border: 1px solid #337ab7;
+    margin-right: 4px;
+    background: #337ab7;
+    padding: 0 3px;
+    margin-top: 4px;
+    color: #fff;
+    border-radius: 2px;
+    float: left;
+}

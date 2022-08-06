@@ -24,7 +24,7 @@
               <div class="card mt-3">
                 <div class="about-text go-to">
                   <h3 class="dark-color" style="padding-left: 6vw;">About Me</h3>
-                  <p style="padding-left: 2vw; padding-right:2vw">{{user.aboutMe}}</p>
+                  <p style="padding-left: 2vw; padding-right:2vw; padding-top: 2vh;">{{user.aboutMe}}</p>
                 </div>
               </div>
             </div>
@@ -33,7 +33,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
+                      <label>Email</label>
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{user.email}}
@@ -42,7 +42,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Phone</h6>
+                      <label>Phone</label>
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{user.phone}}
@@ -51,7 +51,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Address</h6>
+                      <label>Address</label>
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{user.address}}
@@ -60,7 +60,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Birthday</h6>
+                      <label>Birthday</label>
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{birthdayString}}
@@ -69,7 +69,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Age</h6>
+                      <label>Age</label>
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{age}}
@@ -78,7 +78,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Joining Date</h6>
+                      <label>Joining Date</label>
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{joiningDate}}
@@ -95,31 +95,31 @@
               </div>
 
               <div class="row gutters-sm">
-                <div class="col-sm-6 mb-3">
+                <div class="col-sm-6 mb-4">
                   <div class="counter">
                     <div class="row">
-                        <div class="col-6 col-lg-3">
+                        <div class="d-flex col-lg-3">
                             <div class="count-data text-center">
-                                <h6 class="count h2" data-to="500" data-speed="500">500</h6>
-                                <p class="m-0px font-w-600">Opened Contracts</p>
+                                <p class="count h2">500</p>
+                                <p class="font-w-600">Opened Contracts</p>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3">
+                        <div class="d-flex col-lg-3">
                             <div class="count-data text-center">
-                                <h6 class="count h2" data-to="150" data-speed="150">150</h6>
-                                <p class="m-0px font-w-600">Successfully Closed Contracts</p>
+                                <p class="count h2" >150</p>
+                                <p class="font-w-600">Successfully Closed Contracts</p>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3">
+                        <div class="d-flex col-lg-3">
                             <div class="count-data text-center">
-                                <h6 class="count h2" data-to="850" data-speed="850">850</h6>
-                                <p class="m-0px font-w-600">Likes</p>
+                                <p class="count h2">850</p>
+                                <p class="font-w-600">Likes</p>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3">
+                        <div class="d-flex col-lg-3">
                             <div class="count-data text-center">
-                                <h6 class="count h2" data-to="190" data-speed="190">190</h6>
-                                <p class="m-0px font-w-600">Dislikes</p>
+                                <p class="count h2">190</p>
+                                <p class="font-w-600">Dislikes</p>
                             </div>
                         </div>
                     </div>

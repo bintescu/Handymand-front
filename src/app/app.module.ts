@@ -43,6 +43,7 @@ import { DialogUserComponent } from './shared/dialog-user/dialog-user.component'
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DialogJobofferComponent } from './shared/dialog-joboffer/dialog-joboffer.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { DialogJobofferComponent } from './shared/dialog-joboffer/dialog-joboffe
     DialogComponent,
     UsersComponent,
     DialogUserComponent,
-    DialogJobofferComponent
+    DialogJobofferComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

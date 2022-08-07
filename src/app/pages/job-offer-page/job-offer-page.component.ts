@@ -10,32 +10,34 @@ import { JoboffersService } from 'src/app/services/joboffers.service';
 })
 export class JobOfferPageComponent implements OnInit {
 
-  Id!: string | null;
+  id!: string | null;
   firstName:string = "";
   location:string = "";
   jobOffer!: JobOffer;
 
+
   constructor(private route: ActivatedRoute , private jobOfferService: JoboffersService) { }
 
   ngOnInit(): void {
-    /*this.route.paramMap
-    .subscribe(params => {
-      console.log(params);
-      this.Id = params.get('id');
-      console.log(this.Id);
-    });*/
-    this.Id = history.state.IdJobOffer;
-    console.log('Am primit history state:')
-    console.log(history.state);
+    this.id = this.route.snapshot.paramMap.get('id')
 
-    if(this.Id != null){
-      this.jobOfferService.getSpecificJobOffer(parseInt(this.Id)).subscribe( (response:any) => {
+    if(this.id != null){
+      this.jobOfferService.getSpecificJobOffer(parseInt(this.id)).subscribe( (response:any) => {
         this.firstName = response.firstName;
         this.location = response.location;
       })
     }
 
   }
+
+  changeImage(element:any) {
+    console.log("element:")
+    console.log(element);
+    var main_prodcut_image = <HTMLImageElement> document.getElementById('main_product_image');
+    main_prodcut_image.src = element.target.src;
+    
+
+}
 
 
 

@@ -17,6 +17,7 @@ import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.compone
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { SkillsComponent } from './pages/skills/skills.component';
 import { UsersComponent } from './pages/users/users.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 
 const routes: Routes = [
@@ -28,10 +29,12 @@ const routes: Routes = [
   {
     path:'login',
     component:LoginComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'dashboard',
@@ -43,10 +46,12 @@ const routes: Routes = [
     component: ProfileComponent
   },{
     path:'home',
-    component:HomeComponent
+    component:HomeComponent,
+    canActivate:[HasPermissionGuard]
   },{
     path:'joboffers',
-    component:JobOffersComponent
+    component:JobOffersComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'hire',
@@ -54,20 +59,24 @@ const routes: Routes = [
     canActivate:[HasPermissionGuard]
   },
   {
-    path:'jobofferpage',
-    component:JobOfferPageComponent
+    path:'jobofferpage/:id',
+    component:JobOfferPageComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'testjs',
-    component:TestJsComponent
+    component:TestJsComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'myprofile',
-    component:MyProfileComponent
+    component:MyProfileComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'editprofile',
-    component:EditProfileComponent
+    component:EditProfileComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'unauthorized',
@@ -79,11 +88,17 @@ const routes: Routes = [
   },
   {
     path:'skills',
-    component:SkillsComponent
+    component:SkillsComponent,
+    canActivate:[HasPermissionGuard]
   },
   {
     path:'users',
-    component:UsersComponent
+    component:UsersComponent,
+    canActivate:[HasPermissionGuard]
+  },
+  {
+    path:'chat',
+    component:ChatComponent
   },
   { 
     path: '**', 

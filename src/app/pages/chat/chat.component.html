@@ -1,0 +1,45 @@
+
+
+<div class="container mt-5">
+  <h1>Welcome to chat room!</h1>
+  <div class="container mt-5  chatContainer">
+
+    <div class="messageList">
+  
+
+      <div *ngIf="signalRService.messages.length==0">
+        <p>You haven't send or received messages</p>
+      </div>
+  
+  
+      <div class="message" *ngFor="let m of signalRService.messages">
+            <div style="width:100%;" class="mb-2 mt-2">
+              <div>
+                <strong style="margin-right:1vw;">{{m.Name}}</strong>
+              </div>
+              <div style="max-width: inherit; white-space: nowrap; overflow:hidden; text-overflow:ellipsis;"> 
+                <p>{{m.Text}}</p></div>
+            </div>
+      </div>
+    </div>
+
+
+
+    <div class="sendBar" >
+
+      <div class="sendBarI textClass">
+        <textarea type="text"  [(ngModel)]="text"></textarea>
+      </div>
+
+      <div class="sendBarI">
+        <button class="btn btn-primary" [disabled]="text.length==0" (click)="sendMessage()"><fa-icon [icon]="fapaperplane"></fa-icon></button>
+      </div>
+
+  </div >
+
+
+
+
+
+  </div>
+</div>

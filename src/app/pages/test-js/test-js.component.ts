@@ -15,24 +15,24 @@ export class TestJsComponent implements OnInit,OnDestroy {
   private storedIv!:string|null;
   public name!:string;
 
-    @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-    console.log("Processing beforeunload...");
+  //   @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+  //   console.log("Processing beforeunload...");
 
 
-    console.log("salvam in localStorage prima data name")
-    localStorage.setItem('name',this.name);
-    this.storedEncrypted = this.set(this.name,this.keyEnv,this.IvEnv);
+  //   console.log("salvam in localStorage prima data name")
+  //   localStorage.setItem('name',this.name);
+  //   this.storedEncrypted = this.set(this.name,this.keyEnv,this.IvEnv);
 
-    this.storedIv = CryptoJS.enc.Base64.stringify(this.IvEnv);
+  //   this.storedIv = CryptoJS.enc.Base64.stringify(this.IvEnv);
 
 
     
-    localStorage.setItem('storedEncrypted',this.storedEncrypted);
-    localStorage.setItem('storedIv',this.storedIv);
+  //   localStorage.setItem('storedEncrypted',this.storedEncrypted);
+  //   localStorage.setItem('storedIv',this.storedIv);
 
-    return false;
+  //   return false;
 
-  }
+  // }
 
 
 
@@ -43,37 +43,37 @@ export class TestJsComponent implements OnInit,OnDestroy {
   subscription:any = null;
 
   ngOnInit(): void {
-    console.log("culegem din localstorage name:");
-    console.log(localStorage.getItem("name"));
+    // console.log("culegem din localstorage name:");
+    // console.log(localStorage.getItem("name"));
 
-     console.log('culegem din localstorage criptarea si cheia:')
+    //  console.log('culegem din localstorage criptarea si cheia:')
 
-     this.storedEncrypted = localStorage.getItem('storedEncrypted');
-     this.storedIv = localStorage.getItem('storedIv');
+    //  this.storedEncrypted = localStorage.getItem('storedEncrypted');
+    //  this.storedIv = localStorage.getItem('storedIv');
 
-     localStorage.removeItem("name");
-     localStorage.removeItem("storedEncrypted");
-     localStorage.removeItem("storedIv");
-     console.log('am cules din localstorage:',this.storedEncrypted,this.storedIv);
+    //  localStorage.removeItem("name");
+    //  localStorage.removeItem("storedEncrypted");
+    //  localStorage.removeItem("storedIv");
+    //  console.log('am cules din localstorage:',this.storedEncrypted,this.storedIv);
 
-     if(this.storedEncrypted != null && this.storedIv != null)
-     {
+    //  if(this.storedEncrypted != null && this.storedIv != null)
+    //  {
 
 
-      const utf8Encode = new TextEncoder();
-      const byteArr = utf8Encode.encode(this.storedIv);
-      var list:number[] = [];
+    //   const utf8Encode = new TextEncoder();
+    //   const byteArr = utf8Encode.encode(this.storedIv);
+    //   var list:number[] = [];
 
-      byteArr.forEach((elem:number) => {
-        list.push(elem);
-      })
-      var wordIv = this.byteArrayToWordArray(list);
+    //   byteArr.forEach((elem:number) => {
+    //     list.push(elem);
+    //   })
+    //   var wordIv = this.byteArrayToWordArray(list);
 
-      var getIv = CryptoJS.enc.Base64.parse(this.storedIv);
-      var result = this.get(this.storedEncrypted,this.keyEnv,getIv);
-      console.log("result :")
-      console.log(result);
-     }
+    //   var getIv = CryptoJS.enc.Base64.parse(this.storedIv);
+    //   var result = this.get(this.storedEncrypted,this.keyEnv,getIv);
+    //   console.log("result :")
+    //   console.log(result);
+    //  }
 
 
     // var observer = {

@@ -1,0 +1,56 @@
+.sendBarI{
+    display: flex;
+}
+
+.textClass{
+    width: 85%;
+}
+
+.sendBar{
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    justify-content: left;
+    position:relative;
+    padding-bottom: 3%;
+    padding-top: 3%;
+}
+
+textarea{
+    width: 100%;
+}
+
+.icons{
+    border-style: solid;
+    border-radius: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.iconItem{
+    transform: scale(1.2);
+    display: flex;
+}
+
+h1{
+    font-weight: 600;
+}
+
+.chatContainer{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.messageList{
+    display: flex;
+    flex-direction: column;
+    height: 55vh;
+    width: 75vw;
+    overflow-y: scroll;
+}
+
+.message{
+    display: flex;
+}

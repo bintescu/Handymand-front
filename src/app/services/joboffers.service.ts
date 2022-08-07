@@ -60,13 +60,8 @@ export class JoboffersService {
   }
 
   getSpecificJobOffer(id:number){
-    //Asa se declara un obiect json
-     var data:any = {};
-     data.Id = id;
-     data.UserId = localStorage.getItem("loggedInId");
-    return this.http.post(
-      this.baseUrl + "/api/JobOffer/getById",
-      data,
+    return this.http.get(
+      this.baseUrl + "/api/JobOffer/getById/" + id,
       this.publicHeaders);
   }
 

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewCh
 import {MatCardModule} from '@angular/material/card';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { ListItem } from 'ng-multiselect-dropdown/multiselect.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { JoboffersService } from 'src/app/services/joboffers.service';
@@ -38,7 +39,8 @@ export class DialogJobofferComponent implements OnInit, AfterViewInit {
   private dialogRef: MatDialogRef<DialogJobofferComponent>, 
   private authService:AuthService, 
   private jobOfferService:JoboffersService,
-  public sanitizer:DomSanitizer) {
+  public sanitizer:DomSanitizer,
+  private router:Router) {
    }
   
   ngAfterViewInit(): void {
@@ -66,6 +68,10 @@ export class DialogJobofferComponent implements OnInit, AfterViewInit {
 
   }
 
+  viewJob(){
+    this.close();
+    this.router.navigate(['/jobofferpage/' + this.id]);
+  }
 
   getJobOfferImages(){
 

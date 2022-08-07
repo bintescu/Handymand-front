@@ -57,17 +57,12 @@ export class JobofferInfoComponent implements OnInit {
   }
 
   showDetails2(){
-    console.log('Trimitem la jobofferpage ID:',this.id);
-    this.router.navigate(['/jobofferpage'],{state:{IdJobOffer:this.id}}).then(() => {
-      //Pentru mentinerea state-ului in stack-ul de history al browserului nu trebuie sa dam refresh.
-      //https://blog.bitsrc.io/5-methods-to-persisting-state-between-page-reloads-in-react-8fc9abd3fa2f
-      //https://developer.mozilla.org/en-US/docs/Web/API/History/state
-      //window.location.reload();
+    this.router.navigate(['/jobofferpage/' + this.id]).then(() => {
     });
   }
 
   viewJob(){
-    console.log('view job clicked!')
+    this.router.navigate(['/jobofferpage/' + this.id]);
   }
 
 

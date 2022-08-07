@@ -27,20 +27,25 @@ export class HasPermissionGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
+      localStorage.removeItem("storedcryptedId");
+      localStorage.removeItem("storedBase64Iv");
 
     var path = route.routeConfig?.path;
-    var userPaths = ["profile","home","joboffers","hire","jobofferpage","myprofile","editprofile"];
+    var guestPaths = ["home","joboffers","login","register","profile","jobofferpage"]
+    var userPaths = ["profile","hire","jobofferpage/:id","myprofile","editprofile"];
     var adminPaths = ["dashboard","testjs"];
 
     var token = localStorage.getItem('token');
-    if(token == null || token == undefined){
+    if(token == null || token == undefined ){
+      if(path != undefined && guestPaths.includes(path)){
+        return true;
+      }
+
       this.router.navigate(['/login']);
       return false;
     }
     var id = this.parseJwt(token).id;
 
-    console.log('pe guard id:')
-    console.log(id);
     if(id != null && id != '' && id != 0){
 
       if(path == undefined){
@@ -51,7 +56,7 @@ export class HasPermissionGuard implements CanActivate {
 
         if(role == 0){
 
-          if(adminPaths.includes(path) || userPaths.includes(path)){
+          if(adminPaths.includes(path) || userPaths.includes(path) || guestPaths.includes(path)){
             return true;
           }
           else{
@@ -61,7 +66,7 @@ export class HasPermissionGuard implements CanActivate {
 
         if(role == 1){
 
-          if(userPaths.includes(path)){
+          if(userPaths.includes(path) || guestPaths.includes(path)){
             return true;
           }
           else{

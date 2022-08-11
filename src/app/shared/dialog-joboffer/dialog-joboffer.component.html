@@ -4,12 +4,12 @@
     <mat-icon>close</mat-icon>
   </button>
     <mat-card-header>
-      <div mat-card-avatar  >
-        <img #profileImage class="rounded-circle" id="profileImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" >
+      <div mat-card-avatar style="cursor: pointer;" (click)="userProfile()" >
+        <img  #profileImage class="rounded-circle" id="profileImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" >
       </div>
 
       <mat-card-title>{{title}}</mat-card-title>
-      <mat-card-subtitle>{{creationName}}</mat-card-subtitle>
+      <mat-card-subtitle style="cursor: pointer;" (click)="userProfile()">{{creationName}}</mat-card-subtitle>
     </mat-card-header>
 
     <div  class="slideshow-container">

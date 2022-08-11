@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { ClipboardService } from 'ngx-clipboard'
+import { OffersService } from 'src/app/services/offers.service';
 
 @Component({
   selector: 'app-profile',
@@ -40,10 +41,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   joiningDate!:string;
   birthdayString!:string;
 
+
+  openedContracts:number = 0;
+  closedContracts:number = 0;
+  openedOffers:number = 0;
+  openedJobOffers:number = 0;
+
+
+  freelancerRating:number = 0;
+  noFeedbacksFreelancer:number = 0;
+
+
+  customerRating:number = 0;
+  noFeedbacksCustomer:number = 0;
+
+
   navigationObserver:any ={
     next: (res:NavigationStart) =>{
-      console.log("navigation property change:");
-      console.log(res);
       localStorage.removeItem("storedcryptedId");
       localStorage.removeItem("storedBase64Iv");
     },
@@ -81,7 +95,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private authService:AuthService,
               private clipboard: ClipboardService, 
               private userService:UserService,
-              private router:Router) { 
+              private router:Router,
+              private offerService:OffersService) { 
 
       
       //router.events.subscribe(this.navigationObserver);
@@ -127,6 +142,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
             console.log(result)
             this.user = result.data;
             this.user.birthday = new Date(Date.parse(result.data.birthday));
+
+            this.getUserInfoBar();
+            this.getRatingAsFreelancer();
+            this.getRatingAsCustomer();
             if(this.user.birthday  != null){
               let year:number= Number(this.user.birthday.getFullYear());
               let today:number = Number(new Date().getFullYear());
@@ -159,6 +178,67 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   }
 
+  getUserInfoBar(){
+
+    if(this.user.id != null){
+      const observer = {
+        next : (res:any) => {
+          this.openedContracts = res.data.openedContracts;
+          this.closedContracts = res.data.closedContracts;
+          this.openedOffers = res.data.openedOffers;
+          this.openedJobOffers = res.data.openedJobOffers;
+        },
+        error: (err:any) => {
+          console.log("error pe get info bar user");
+          console.log(err);
+        }
+      }
+  
+      this.userService.getUserInfoBar(this.user.id).subscribe(observer);
+    }
+
+  }
+
+
+  getRatingAsFreelancer(){
+    const observer = {
+      next: (resp:any) =>{
+        console.log("rating as freelancer:")
+        console.log(resp.data)
+        this.freelancerRating = resp.data.grade;
+        this.noFeedbacksFreelancer = resp.data.nrOfFeedbacks;
+      },
+      error: (err:any) =>{
+        console.log("Error pe get rating");
+        console.log(err);
+      }
+    }
+
+    if(this.user.id != null){
+      this.offerService.getRatingForFreelancer(this.user.id).subscribe(observer);
+    }
+
+  }
+
+  getRatingAsCustomer(){
+    const observer = {
+      next: (resp:any) =>{
+        console.log("rating as customer:")
+        console.log(resp.data)
+        this.customerRating = resp.data.grade;
+        this.noFeedbacksCustomer = resp.data.nrOfFeedbacks;
+      },
+      error: (err:any) =>{
+        console.log("Error pe get rating");
+        console.log(err);
+      }
+    }
+
+    if(this.user.id != null){
+      this.offerService.getRatingForCustomer(this.user.id).subscribe(observer);
+    }
+
+  }
 
   getProfilePictureUser(){
     if(this.Iv != null){

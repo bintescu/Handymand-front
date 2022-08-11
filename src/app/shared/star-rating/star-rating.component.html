@@ -1,0 +1,14 @@
+
+<div class="inlineDiv">
+    <div class="stars">
+        <fa-icon class="yellowStar" *ngFor="let star of stars"  [icon]="iconClass[star]"></fa-icon>
+    </div>
+
+    <div class="grade">
+        <p>{{rating}}</p>
+    </div>
+
+    <div class="nofeedbacks">
+        <p>({{totalnofeedbacks}})</p>
+    </div>
+</div>

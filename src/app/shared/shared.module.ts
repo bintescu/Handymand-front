@@ -14,9 +14,8 @@ import {MatCardModule} from '@angular/material/card';
     UserInfoComponent,
     ContractInfoComponent,
     JobofferInfoComponent,
-    NavbarComponent,
     FooterComponent,
-    JobofferInfoComponent
+    JobofferInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +25,6 @@ import {MatCardModule} from '@angular/material/card';
     UserInfoComponent,
     ContractInfoComponent,
     JobofferInfoComponent,
-    NavbarComponent,
     FooterComponent
   ]
 })

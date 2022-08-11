@@ -45,8 +45,17 @@ body{
     align-items: center
 }
 
+
 .content p{
-    font-size: 12px
+    font-size: 13px
+}
+
+.marginTop10{
+    margin-top: 10%;
+}
+
+.marginTop5{
+    margin-top: 5%;
 }
 
 .ratings span{
@@ -55,42 +64,17 @@ body{
 }
 
 .colors{
-    margin-top: 5px
-}
-
-.colors ul{
-    list-style: none;
+    margin-top: 5px;
     display: flex;
-    padding-left: 0px
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: left;
+    column-gap: 2%;
 }
 
-.colors ul li{
-    height: 20px;
-    width: 20px;
+.skill{
     display: flex;
-    border-radius: 50%;
-    margin-right: 10px;
-    cursor: pointer
-}
 
-.colors ul li:nth-child(1){
-    background-color: #6c704d
-}
-
-.colors ul li:nth-child(2){
-    background-color: #96918b
-}
-
-.colors ul li:nth-child(3){
-    background-color: #68778e
-}
-
-.colors ul li:nth-child(4){
-    background-color: #263f55
-}
-
-.colors ul li:nth-child(5){
-    background-color: black
 }
 
 .right-side{
@@ -178,3 +162,170 @@ body{
     width: 150px;
     border-radius: 0px !important
 }
+
+#profileImage{
+    border-radius: 50%;
+    width: 6vw;
+  }
+
+.userCard{
+    display:flex;  
+    justify-content: left;
+    align-items:flex-start;
+}
+
+.userCardItem{
+   cursor: pointer;
+   display: flex;
+   width: 8vw;
+}
+
+//FORM
+
+
+.inputForm{
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+
+h2 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  margin: 40px 8px 10px 8px; 
+  color: #cccccc;
+}
+
+
+
+/* STRUCTURE */
+
+#formContent {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+#formHeader{
+  background-color: #f6f6f6;
+  border-top: 1px solid #dce8f1;
+  padding: 1%;
+  text-align: left;
+  font-size: large;
+  font-weight:800;
+}
+
+
+/* TABS */
+
+h2.inactive {
+  color: #cccccc;
+}
+
+h2.active {
+  color: #0d0d0d;
+  border-bottom: 2px solid #5fbae9;
+}
+
+
+
+/* FORM TYPOGRAPHY*/
+
+
+.form-group{
+    display: flex;
+    padding-left: 3%;
+    padding-top: 3%;
+}
+
+label{
+    width: 8vw;
+    font-size: medium;
+    font-weight: 500;
+}
+
+.errors{
+    padding-left: 14%;
+    display: flex;
+    flex-direction: column;
+}
+
+#descI{
+    width: 50vw;
+}
+
+.buttonRegisterDiv{
+    display: flex;
+    padding-left: 14%;
+    padding-bottom: 2%;
+    padding-top: 3%;
+}
+
+#buttonRegister{
+    width: 10vw;
+}
+
+#succesPopup{
+    margin-left: 30%;
+    margin-top: 0%;
+    position:absolute;
+    z-index: -1;
+    box-shadow: 1px 1px 3px 1px #999;
+    border-radius: 5px;
+    opacity: 0%;
+    transition: all 1s ease-in-out;
+    transition-property: margin-top, opacity;
+  }
+
+  .alert .close {
+    position: absolute;
+    top: 0.3vh;
+    right: 0.5vw;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .alert .close:hover {
+    color: #06D85F;
+    cursor: pointer;
+  }
+  
+
+  @media screen and (max-width: 700px){
+  
+    .alert{
+      width: 30%;
+    }
+  }
+
+
+  .containerOffers{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .everyOffer{
+    display: flex;
+    margin-bottom: 2%;
+  }
+
+  app-offer-info{
+    width: 100%;
+  }
+
+  .closeContractButton{
+    margin-top: 10%;
+  }

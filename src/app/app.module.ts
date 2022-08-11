@@ -44,8 +44,13 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DialogJobofferComponent } from './shared/dialog-joboffer/dialog-joboffer.component';
 import { ChatComponent } from './pages/chat/chat.component';
-
-
+import { FreelancersComponent } from './pages/freelancers/freelancers.component';
+import { OfferInfoComponent } from './shared/offer-info/offer-info.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { JobclosedComponent } from './pages/jobclosed/jobclosed.component';
+import { DialogCloseContractComponent } from './shared/dialog-close-contract/dialog-close-contract.component';
+import { DialogDeleteJobofferComponent } from './shared/dialog-delete-joboffer/dialog-delete-joboffer.component';
+import { StarRatingComponent } from './shared/star-rating/star-rating.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +73,14 @@ import { ChatComponent } from './pages/chat/chat.component';
     UsersComponent,
     DialogUserComponent,
     DialogJobofferComponent,
-    ChatComponent
+    DialogCloseContractComponent,
+    DialogDeleteJobofferComponent,
+    ChatComponent,
+    FreelancersComponent,
+    OfferInfoComponent,
+    NavbarComponent,
+    JobclosedComponent,
+    StarRatingComponent,
   ],
   imports: [
     BrowserModule,

@@ -62,6 +62,8 @@ export class DialogJobofferComponent implements OnInit, AfterViewInit {
           this.noImages.push(i);
         }
       }
+
+      console.log("AI deschis quick view si ar trebui sa obtii :", this.noImages, " imagini")
       this.getProfilePictureUser();
       this.getJobOfferImages();
     }
@@ -75,6 +77,7 @@ export class DialogJobofferComponent implements OnInit, AfterViewInit {
 
   getJobOfferImages(){
 
+    console.log("AM APELAT JOB OFFERS IMAGES ")
     if(this.noImages && this.id != null)
     for(let  index = 1; index < this.noImages?.length + 1; index++){
       const observer = {
@@ -101,6 +104,16 @@ export class DialogJobofferComponent implements OnInit, AfterViewInit {
 
 
   }
+
+  userProfile(){
+
+    this.close();
+    var cryptedId = this.authService.set(this.editData.CreationId.toString(),this.keyEnv,this.IvEnv)
+    var IvBase64 = CryptoJS.enc.Base64.stringify(this.IvEnv);
+    this.router.navigate(['/profile'], { state: { cryptedId: cryptedId, IvBase64:IvBase64 } } );
+  }
+
+  
   getProfilePictureUser(){
     let data = {
       "cryptId":this.authService.set(this.editData.CreationId.toString() ,this.keyEnv,this.IvEnv),

@@ -46,8 +46,7 @@ export class HomeComponent implements OnInit {
       var IdLoggedIn = this.parseJwt(this.token).id;
 
       if(IdLoggedIn != null){
-        this.router.navigate(['/hire']).then(() => {
-          //window.location.reload();
+        this.router.navigate(['/hire']).then(() => {;
         });
       }
     }
@@ -68,18 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   EarnMoney(){
-    var IdLoggedIn = localStorage.getItem('loggedInId');
-    if(IdLoggedIn != null){
-      console.log('earn when LoggedIn!')
-    }
-    else{
-      console.log('earn non-login!')
-      this.popup = true;
-      var homeElement = document.getElementById("allPage");
-      // if(homeElement != null){
-      //   homeElement.style.overflowY = "hidden";
-      // }
-    }
+    this.router.navigate(['joboffers']);
   }
 
   EnableScroll(){

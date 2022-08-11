@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { ClipboardService } from 'ngx-clipboard'
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { OffersService } from 'src/app/services/offers.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -43,16 +44,38 @@ export class EditProfileComponent implements OnInit {
   incorrectFile = false;
   selectedFile!: File;
 
+
+  openedContracts:number = 0;
+  closedContracts:number = 0;
+  openedOffers:number = 0;
+  openedJobOffers:number = 0;
+
+
+
+  freelancerRating:number = 0;
+  noFeedbacksFreelancer:number = 0;
+
+
+  customerRating:number = 0;
+  noFeedbacksCustomer:number = 0;
+
+
   @ViewChild("profileImage") profileImage!: ElementRef;
 
-  constructor(private formBuilder:UntypedFormBuilder,private userService:UserService, private clipboard:ClipboardService, private router:Router) { }
+  constructor(private formBuilder:UntypedFormBuilder,
+    private userService:UserService, 
+    private clipboard:ClipboardService, 
+    private router:Router,
+    private offerService:OffersService) { }
 
+  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+    event.returnValue = false;
+  }
 
+  
   ngOnInit(): void {
 
     this.userService.getMyProfilePicture().subscribe((response:any) => {
-      console.log('Am primit de la server cand am apelat picture profile:')
-      console.log(response.data);
       this.profileImage.nativeElement.src = "data:image;base64," + response.data;
     })
 
@@ -68,6 +91,9 @@ export class EditProfileComponent implements OnInit {
     this.userService.getMyuser().subscribe((rezult:any) => {
       this.user = rezult.data;
 
+      this.getUserInfoBar();
+      this.getRatingAsCustomer();
+      this.getRatingAsFreelancer();
       this.user.birthday = new Date(Date.parse(rezult.data.birthday));
       if(this.user.birthday  != null){
         let year:number= Number(this.user.birthday.getFullYear());
@@ -88,6 +114,68 @@ export class EditProfileComponent implements OnInit {
 
     });
 
+
+  }
+
+
+  getUserInfoBar(){
+
+    if(this.user.id != null){
+      const observer = {
+        next : (res:any) => {
+          this.openedContracts = res.data.openedContracts;
+          this.closedContracts = res.data.closedContracts;
+          this.openedOffers = res.data.openedOffers;
+          this.openedJobOffers = res.data.openedJobOffers;
+        },
+        error: (err:any) => {
+          console.log("error pe get info bar user");
+          console.log(err);
+        }
+      }
+  
+      this.userService.getUserInfoBar(this.user.id).subscribe(observer);
+    }
+
+  }
+
+  getRatingAsFreelancer(){
+    const observer = {
+      next: (resp:any) =>{
+        console.log("rating as freelancer:")
+        console.log(resp.data)
+        this.freelancerRating = resp.data.grade;
+        this.noFeedbacksFreelancer = resp.data.nrOfFeedbacks;
+      },
+      error: (err:any) =>{
+        console.log("Error pe get rating");
+        console.log(err);
+      }
+    }
+
+    if(this.user.id != null){
+      this.offerService.getRatingForFreelancer(this.user.id).subscribe(observer);
+    }
+
+  }
+
+  getRatingAsCustomer(){
+    const observer = {
+      next: (resp:any) =>{
+        console.log("rating as customer:")
+        console.log(resp.data)
+        this.customerRating = resp.data.grade;
+        this.noFeedbacksCustomer = resp.data.nrOfFeedbacks;
+      },
+      error: (err:any) =>{
+        console.log("Error pe get rating");
+        console.log(err);
+      }
+    }
+
+    if(this.user.id != null){
+      this.offerService.getRatingForCustomer(this.user.id).subscribe(observer);
+    }
 
   }
 

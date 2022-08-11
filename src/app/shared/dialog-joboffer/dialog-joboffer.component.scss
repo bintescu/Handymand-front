@@ -8,19 +8,30 @@
 
 .mySlides{
   //display: none;
+  width: 100%;
+  height: 40vh;
 }
 
-.slideImage{
-  
+.mat-card-image{
+  object-fit: fill;
+  border-radius: 1%;
+  height: 100%;
 }
+
 
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
+  max-height: 40vh;
+  max-width: 30vw;
   position: relative;
   margin: auto;
 }
+
+.mat-card-content{
+  margin-top: 3%;
+}
+
 
 .text {
   color: #f2f2f2;

@@ -144,12 +144,15 @@ img {
   border-radius: 10px;
   box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
   display: flex;
-  width: 50vw;
+  width: 55vw;
 }
+
 .counter .count-data {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  margin-right: 20vw;
 }
+
 .counter .count {
   font-weight:200;
   color: #20247b;

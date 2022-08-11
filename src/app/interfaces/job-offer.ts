@@ -16,5 +16,6 @@ export interface JobOffer {
     daysAgo:number,
     skills:Skill[],
     city:City,
-    noImages:number | null
+    noImages:number | null,
+    available:boolean
 }

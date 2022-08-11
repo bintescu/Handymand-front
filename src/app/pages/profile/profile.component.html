@@ -11,9 +11,14 @@
                   <div class="mt-3">
                     <h4>{{user.lastName}} {{user.firstName}}</h4>
                     <p class="text-secondary mb-1">{{user.title}}</p>
-                    <p class="text-muted font-size-sm">{{user.address}}</p>
+                    <p *ngIf="!user.address" class="text-muted font-size-sm">{{user.address}}</p>
                     <p style="display: inline-block; padding-right: 1vw;" class="text-muted font-size-sm" id="myWallet">{{user.walletAddress}}</p>
                     <button (click)="copyWalletAdress()" style="display: inline-block;"  type="button" class="btn btn-outline-primary" ><fa-icon [icon]="faclipboard"></fa-icon></button>
+                    <p class="text-secondary mb-1">Rating as Handyman</p>
+                    <app-star-rating [rating]="freelancerRating" [totalnofeedbacks] = "noFeedbacksFreelancer"></app-star-rating>
+                    <p class="text-secondary mb-1">Rating as Customer</p>
+                    <app-star-rating [rating]="customerRating" [totalnofeedbacks] = "noFeedbacksCustomer"></app-star-rating>
+                  
                   </div>
                 </div>
               </div>
@@ -91,26 +96,26 @@
                   <div class="row">
                       <div class="d-flex col-lg-3">
                           <div class="count-data text-center">
-                              <p class="count h2">500</p>
+                              <p class="count h2">{{openedContracts}}</p>
                               <p class="font-w-600">Opened Contracts</p>
                           </div>
                       </div>
                       <div class="d-flex col-lg-3">
                           <div class="count-data text-center">
-                              <p class="count h2" >150</p>
-                              <p class="font-w-600">Successfully Closed Contracts</p>
+                              <p class="count h2" >{{closedContracts}}</p>
+                              <p class="font-w-600">Closed Contracts</p>
                           </div>
                       </div>
                       <div class="d-flex col-lg-3">
                           <div class="count-data text-center">
-                              <p class="count h2">850</p>
-                              <p class="font-w-600">Likes</p>
+                              <p class="count h2">{{openedOffers}}</p>
+                              <p class="font-w-600">Opened Offers</p>
                           </div>
                       </div>
                       <div class="d-flex col-lg-3">
                           <div class="count-data text-center">
-                              <p class="count h2">190</p>
-                              <p class="font-w-600">Dislikes</p>
+                            <p class="count h2">{{openedJobOffers}}</p>
+                            <p class="font-w-600">Opened Job Offers</p>
                           </div>
                       </div>
                   </div>

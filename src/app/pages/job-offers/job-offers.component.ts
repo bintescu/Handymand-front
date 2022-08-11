@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -40,7 +40,6 @@ export class JobOffersComponent implements OnInit {
   dropdownSettings:IDropdownSettings={};
   dropdownList:Skill[] = [];
 
-
   cities:City[] = [];
   
   constructor(private jobofferservice : JoboffersService, private router:Router,private formBuilder:UntypedFormBuilder) { }
@@ -59,9 +58,9 @@ export class JobOffersComponent implements OnInit {
       skills:[],
       lowPriceRange:null ,
       highPriceRange:null,
+      myJobOffers:false
     })
 
-    this.setTotalPages();
     this.getAllJobOffers();
 
 
@@ -115,7 +114,9 @@ export class JobOffersComponent implements OnInit {
   getAllJobOffers(){
 
     const observer = {
+
       next: (response:any) => {
+
         this.joboffers = response.data;
         this.noOfItems = this.joboffers?.length;
         var today = new Date();
@@ -125,7 +126,6 @@ export class JobOffersComponent implements OnInit {
         })
         
         this.doSort();
-        this.doSortOnlyMyOffers();
       },
       error: (err:any) => {
         console.log('avem eroare:')
@@ -134,12 +134,14 @@ export class JobOffersComponent implements OnInit {
     }
 
     this.jobofferservice.getAllJobOffers(this.currentPage,this.pageSize,this.myForm.value).subscribe(observer);
+    this.setTotalPages();
   }
 
   setTotalPages(){
 
     const observer = {
       next: (response:any) => {
+
         this.length = response.data;
       },
       error: (err:any) => {
@@ -149,13 +151,14 @@ export class JobOffersComponent implements OnInit {
       }
     }
 
-    this.jobofferservice.getTotalLength().subscribe(observer);
+    this.jobofferservice.getTotalLength(this.myForm.value).subscribe(observer);
   }
 
 
   changeMyoffers(event:any){
     this.onlymyoffers = event.checked;
-    this.doSortOnlyMyOffers();
+    this.myForm.controls["myJobOffers"].setValue(event.checked);
+    this.getAllJobOffers();
   }
 
 
@@ -173,6 +176,8 @@ export class JobOffersComponent implements OnInit {
 
     }
   }
+
+  
   changeSort(event:any){
     this.selectedSort = event.target.value;
     this.doSort();
@@ -207,7 +212,15 @@ export class JobOffersComponent implements OnInit {
 
 
   clearFilter(){
+    let myOffersBool:boolean|null =  this.myForm.controls["myJobOffers"].value;
+
     this.myForm.reset();
+
+    if(myOffersBool == null){
+      this.myForm.controls["myJobOffers"].setValue(false);
+    }else{
+      this.myForm.controls["myJobOffers"].setValue(myOffersBool);
+    }
     this.getAllJobOffers();
   }
 

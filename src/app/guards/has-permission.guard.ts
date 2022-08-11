@@ -31,9 +31,9 @@ export class HasPermissionGuard implements CanActivate {
       localStorage.removeItem("storedBase64Iv");
 
     var path = route.routeConfig?.path;
-    var guestPaths = ["home","joboffers","login","register","profile","jobofferpage"]
+    var guestPaths = ["home","joboffers","login","register","profile","freelancers"]
     var userPaths = ["profile","hire","jobofferpage/:id","myprofile","editprofile"];
-    var adminPaths = ["dashboard","testjs"];
+    var adminPaths = ["dashboard","testjs","users","skills"];
 
     var token = localStorage.getItem('token');
     if(token == null || token == undefined ){

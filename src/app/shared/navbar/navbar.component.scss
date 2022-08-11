@@ -17,6 +17,42 @@ nav {
 }
 #profileImage{
     border-radius: 30%;
-    width: 8%;
+    width: 45%;
     padding-right: 0.5vw;
   }
+
+
+.dropdown-menu li {
+  position: relative;
+}
+
+.dropdown-menu .dropdown-submenu {
+display: none;
+position: absolute;
+left: 100%;
+top: -5%;
+}
+
+.dropdown-menu .dropdown-submenu-left {
+right: 100%;
+left: auto;
+}
+    
+.dropdown-menu > li:hover > .dropdown-submenu {
+  height: auto;
+  max-height: 25vh;
+  width: 18vw;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  display: block;
+}
+
+
+
+#navbarBlueDropdownMenuLink{
+  width: 40%;
+}
+
+#profileNavItem{
+  width: 50%;
+}

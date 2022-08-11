@@ -1,0 +1,28 @@
+.profileImage{
+    border-radius: 50%;
+    width: 100%;
+  }
+
+  .inline{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+ }
+
+  .mat-card-header{
+    display: flex;
+  }
+
+  .dateCreated{
+    display: flex;
+  }
+
+  .fa-3x{
+    margin-left: 45%;
+    color: green !important;
+  }
+
+  .yellowStar{
+    color: rgb(196, 178, 15);
+  }

@@ -1,0 +1,43 @@
+<mat-card class="example-card">
+
+  <div class="inline">
+
+    <mat-card-header>
+        <div mat-card-avatar style="cursor: pointer;width: 5vw; padding-bottom: 8%;" (click)="userProfile()" >
+          <img  #profileImage class="rounded-circle profileImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" >
+        </div>
+
+        <mat-card-title style="cursor: pointer;" (click)="userProfile()" >{{creationUserName}}</mat-card-title>
+        <mat-card-subtitle >{{creationUserTitle}}</mat-card-subtitle>
+        <mat-card-title class="">{{paymentAmount}} RON per hour</mat-card-title>
+
+        <app-star-rating [rating]="rating" [totalnofeedbacks] = "totalnofeedbacks"></app-star-rating>
+
+    </mat-card-header>
+
+    <mat-card-subtitle class="dateCreated">{{dateCreated | date}}</mat-card-subtitle>
+
+  </div>
+
+
+
+
+
+    <mat-card-content>
+      <p>{{ description }}</p>
+    </mat-card-content>
+
+
+    <fa-icon *ngIf="showGreen; else elseBlock" class="fa-3x" [icon]="handShake"></fa-icon>
+
+    <ng-template #elseBlock>
+      <mat-card-actions *ngIf="isCreationUserLoggedIn && available">
+        <button (click)="acceptOffer()" mat-button>ACCEPT</button>
+      </mat-card-actions>
+    </ng-template>
+
+
+
+    <mat-card-footer>
+    </mat-card-footer>
+  </mat-card>

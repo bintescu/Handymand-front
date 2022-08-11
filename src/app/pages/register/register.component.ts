@@ -56,6 +56,8 @@ export class RegisterComponent implements OnInit {
   doRegister(){
 
     if(this.myForm.valid){
+      console.log("Form trimis la validare")
+      console.log(this.myForm);
 
       let email:string = this.authService.set(this.myForm.controls["email"].value,this.keyEnv,this.IvEnv);
       let firstName:string = this.authService.set(this.myForm.controls["firstName"].value,this.keyEnv,this.IvEnv);
@@ -70,6 +72,7 @@ export class RegisterComponent implements OnInit {
       this.user.password = password;
       this.user.birthday = birthday;
       this.user.iv = bytearray;
+      this.user.amount = 0;
 
 
       const observer = {

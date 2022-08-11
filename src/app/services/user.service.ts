@@ -113,6 +113,15 @@ export class UserService {
       options
     )
   }
+
+
+  getUserInfoBar(id:number){
+    return this.http.get(
+      this.baseUrl + "/api/users/getuserinfobar/" + id,
+      this.publicHeaders
+    )
+
+  }
   
 
 }

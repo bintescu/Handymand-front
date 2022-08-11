@@ -20,7 +20,7 @@
         <a class="nav-link" href="joboffers">Offers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">Freelancers</a>
+        <a class="nav-link" href="freelancers">Freelancers</a>
       </li>
 
       <li *ngIf="!loginName" class="nav-item" style="margin-left: 44vw;">
@@ -31,8 +31,8 @@
       </li>
       <li *ngIf="loginName" class="nav-item" style="margin-left: 42vw;">
         <div class="collapse navbar-collapse" id="navbarNavBlueDropdown">
-          <ul>
-            <li class="nav-item dropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown" id="profileNavItem">
               <a class="nav-link dropdown-toggle" href="#" id="navbarBlueDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               
                 <img #profileImage id="profileImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
@@ -40,11 +40,124 @@
                 <strong>{{loginName}}</strong>
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarBlueDropdownMenuLink">
-                <li><a class="dropdown-item" (click) = "myProfile()">Profile</a></li>
+                <li><a style="cursor:pointer ;" class="dropdown-item" (click) = "myProfile()">Profile</a></li>
                 <li><a class="dropdown-item" href="chat">Chat Room</a></li>
-                <li><a class="dropdown-item" href="#">Pending Offers</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    My Active Offers &raquo;
+                  </a>
+                  <ul *ngIf="offersList.length > 0; else elseBlock1" class="dropdown-menu dropdown-menu-dark dropdown-submenu">
+                    
+                    <li  *ngFor="let offer of offersList">
+                      <a  href="jobofferpage/{{offer.jobOfferId}}" class="dropdown-item" >{{offer.jobOfferTitle}} with <strong>{{offer.paymentAmount}} RON </strong>  from {{offer.dateCreated | date}} </a>
+                    </li>
+                    
+                  </ul>
+
+                  <ng-template #elseBlock1>
+                    <ul  class="dropdown-menu dropdown-menu-dark dropdown-submenu">
+                      <li>
+                        <a class="dropdown-item">Empty</a>
+                      </li>
+                    </ul>
+                  </ng-template>
+                </li>
                 <li><a class="dropdown-item" (click)="signOut()" href="#">Sign Out</a></li>
+              </ul> 
+            </li>
+
+
+
+
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <fa-icon [icon]="faBell"></fa-icon>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLinkRight">
+                <li>
+                  <a style="cursor: pointer;" class="dropdown-item">
+                    My Accepted Offers &raquo;
+                  </a>
+                  <ul *ngIf="acceptedOffersList.length > 0; else elseBlock3" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                    
+                    <li  *ngFor="let offer of acceptedOffersList">
+                      <a  href="jobofferpage/{{offer.jobOfferId}}" class="dropdown-item" >{{offer.jobOfferTitle}} with <strong>{{offer.paymentAmount}} RON </strong>  from {{offer.dateCreated | date}} </a>
+                    </li>
+                    
+                  </ul>
+
+                  <ng-template #elseBlock3>
+                    <ul  class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                      <li>
+                        <a class="dropdown-item">Empty</a>
+                      </li>
+                    </ul>
+                  </ng-template>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    My Active Job Offers &raquo;
+                  </a>
+                  <ul *ngIf="jobOffersList != null && jobOffersList.length > 0; else elseBlock2" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                    
+                    <li  *ngFor="let joboffer of jobOffersList">
+                      <a  href="jobofferpage/{{joboffer.id}}" class="dropdown-item" >{{joboffer.title}} from {{joboffer.dateCreated | date}} </a>
+                    </li>
+                    
+                  </ul>
+
+                  <ng-template #elseBlock2>
+                    <ul  class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                      <li>
+                        <a class="dropdown-item">Empty</a>
+                      </li>
+                    </ul>
+                  </ng-template>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Pending Jobs &raquo;
+                  </a>
+                  <ul *ngIf="pendingJobs != null && pendingJobs.length > 0; else elseBlock4" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                    
+                    <li  *ngFor="let joboffer of pendingJobs">
+                      <a  href="jobofferpage/{{joboffer.id}}" class="dropdown-item" >{{joboffer.title}} from {{joboffer.dateCreated | date}} </a>
+                    </li>
+                    
+                  </ul>
+
+                  <ng-template #elseBlock4>
+                    <ul  class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                      <li>
+                        <a class="dropdown-item">Empty</a>
+                      </li>
+                    </ul>
+                  </ng-template>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Closed Job Contracts &raquo;
+                  </a>
+                  <ul *ngIf="closedJobOfferList != null && closedJobOfferList.length > 0; else elseBlock5" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                    
+                    <li  *ngFor="let joboffer of closedJobOfferList">
+                      <a  (click)="showFeedbackDialog(joboffer)"  style="cursor: pointer;" class="dropdown-item" >{{joboffer.creationUserName}} -> {{joboffer.title}} from {{joboffer.dateCreated | date}} </a>
+                    </li>
+                    
+                  </ul>
+
+                  <ng-template #elseBlock5>
+                    <ul  class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                      <li>
+                        <a class="dropdown-item">Empty</a>
+                      </li>
+                    </ul>
+                  </ng-template>
+                </li>
               </ul>
+
+               
             </li>
           </ul>
         </div>

@@ -20,6 +20,7 @@ export class JoboffersService {
   }
 
   getAllJobOffers(pageNr:number,noElements:number, data:any){
+
     if(pageNr < 0 || noElements == 0){
       return this.http.post(this.baseUrl + '/api/JobOffer/allJobOffers',
       data,
@@ -34,9 +35,10 @@ export class JoboffersService {
 
   }
 
-  getTotalLength(){
-    return this.http.get(
+  getTotalLength(filter:any){
+    return this.http.post(
       this.baseUrl + '/api/JobOffer/total',
+      filter,
       this.publicHeaders
     )
   }
@@ -89,6 +91,63 @@ export class JoboffersService {
       }
       ) 
 
+  }
+
+  getAllForLoggedIn(){
+    return this.http.get(
+      this.baseUrl + "/api/JobOffer/getallforloggedin/",
+      this.publicHeaders
+    )
+  }
+
+  getAllPendingForLoggedIn(){
+    return this.http.get(
+      this.baseUrl + "/api/JobOffer/getallpendingforloggedin/",
+      this.publicHeaders
+    )
+  }
+
+  getAllClosedJobOfferForFeedback(){
+    return this.http.get(
+      this.baseUrl + "/api/JobOffer/getallclosedforfeedback",
+      this.publicHeaders 
+    )
+  }
+  
+
+  closeContract(idJobOffer:number, feedback:number){
+    return this.http.post(
+      this.baseUrl + "/api/JobOffer/closecontract/" + idJobOffer +"?feedbackVal=" + feedback ,
+      this.publicHeaders
+    )
+  }
+
+  sendFeedback(idJobOffer:number, feedback:number){
+    return this.http.post(
+      this.baseUrl + "/api/JobOffer/sendfeedback/" + idJobOffer +"?feedbackVal=" + feedback ,
+      this.publicHeaders
+    )
+  }
+
+  deleteJobOffer(idJobOffer:number){
+    return this.http.post(
+      this.baseUrl + "/api/JobOffer/deletejoboffer/" + idJobOffer,
+      this.publicHeaders
+    )
+  }
+
+  getCustomerName(idJobOffer:number){
+    return this.http.get(
+      this.baseUrl + "/api/JobOffer/getcustomername/" + idJobOffer,
+      this.publicHeaders
+    )
+  }
+
+  getFreelancerName(idJobOffer:number){
+    return this.http.get(
+      this.baseUrl + "/api/JobOffer/getfreelancername/" + idJobOffer,
+      this.publicHeaders
+    )
   }
 
 }

@@ -18,6 +18,8 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { SkillsComponent } from './pages/skills/skills.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { FreelancersComponent } from './pages/freelancers/freelancers.component';
+import { JobclosedComponent } from './pages/jobclosed/jobclosed.component';
 
 
 const routes: Routes = [
@@ -79,12 +81,21 @@ const routes: Routes = [
     canActivate:[HasPermissionGuard]
   },
   {
+    path:'freelancers',
+    component:FreelancersComponent,
+    canActivate:[HasPermissionGuard]
+  },
+  {
     path:'unauthorized',
     component:UnauthorizedComponent
   },
   {
     path:'notfound',
     component:NotfoundComponent
+  },
+  {
+    path:'jobclosed',
+    component:JobclosedComponent
   },
   {
     path:'skills',

@@ -56,3 +56,19 @@ left: auto;
 #profileNavItem{
   width: 50%;
 }
+
+:host ::ng-deep .change-color {
+  background-color: red;
+  transform: scale(0.7) translateX(50%) translateY(-50%);
+}
+
+.dropdown-item-red{
+  background-color: rgb(115, 35, 35);
+  
+}
+
+
+.dropdown-item-red:hover{
+  background-color: rgb(38, 6, 6) !important;
+  
+}

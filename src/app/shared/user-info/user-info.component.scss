@@ -1,0 +1,33 @@
+.profileImage{
+    border-radius: 50%;
+    width: 100%;
+  }
+
+  .inline{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+ }
+
+  .mat-card-header{
+    display: flex;
+  }
+
+  .dateCreated{
+    display: flex;
+  }
+
+  .fa-3x{
+    margin-left: 45%;
+    color: green !important;
+  }
+
+  .displayColumn{
+    margin-left: 25%;
+  }
+
+  .mat-card-content{
+    margin-left: 5%;
+    margin-top: 5%;
+  }

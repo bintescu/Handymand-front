@@ -20,7 +20,7 @@
         <a class="nav-link" href="joboffers">Offers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="freelancers">Freelancers</a>
+        <a class="nav-link" href="freelancers">Users</a>
       </li>
 
       <li *ngIf="!loginName" class="nav-item" style="margin-left: 44vw;">
@@ -42,26 +42,7 @@
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarBlueDropdownMenuLink">
                 <li><a style="cursor:pointer ;" class="dropdown-item" (click) = "myProfile()">Profile</a></li>
                 <li><a class="dropdown-item" href="chat">Chat Room</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    My Active Offers &raquo;
-                  </a>
-                  <ul *ngIf="offersList.length > 0; else elseBlock1" class="dropdown-menu dropdown-menu-dark dropdown-submenu">
-                    
-                    <li  *ngFor="let offer of offersList">
-                      <a  href="jobofferpage/{{offer.jobOfferId}}" class="dropdown-item" >{{offer.jobOfferTitle}} with <strong>{{offer.paymentAmount}} RON </strong>  from {{offer.dateCreated | date}} </a>
-                    </li>
-                    
-                  </ul>
 
-                  <ng-template #elseBlock1>
-                    <ul  class="dropdown-menu dropdown-menu-dark dropdown-submenu">
-                      <li>
-                        <a class="dropdown-item">Empty</a>
-                      </li>
-                    </ul>
-                  </ng-template>
-                </li>
                 <li><a class="dropdown-item" (click)="signOut()" href="#">Sign Out</a></li>
               </ul> 
             </li>
@@ -72,17 +53,47 @@
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <fa-icon [icon]="faBell"></fa-icon>
+                <fa-layers  [fixedWidth]="true">
+                  <fa-icon size="1x" [icon]="faBell"></fa-icon>
+                  <fa-layers-counter *ngIf="counterNotifications > 0" content="{{counterNotifications}}" [classes]="['change-color']"></fa-layers-counter>
+              </fa-layers>
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLinkRight">
                 <li>
+                  <a class="dropdown-item" href="#">
+                    &laquo; My Active Offers 
+                    <fa-layers  [fixedWidth]="true">
+                      <fa-layers-counter *ngIf="counterNotificationActiveOffers > 0" content="{{counterNotificationActiveOffers}}" [classes]="['change-color']"></fa-layers-counter>
+                    </fa-layers>
+                  </a>
+
+                  <ul *ngIf="offersList.length > 0; else elseBlock1" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                    
+                    <li  *ngFor="let offer of offersList">
+                      <a [ngClass]="{'dropdown-item-red': offer.viewed == false}" style="cursor: pointer;" (click)="GoToJobOfferAndViewNotificationCreateOffer(offer)" class="dropdown-item" >{{offer.jobOfferTitle}} with <strong>{{offer.paymentAmount}} RON </strong>  from {{offer.dateCreated | date}} </a>
+                    </li>
+                    
+                  </ul>
+
+                  <ng-template #elseBlock1>
+                    <ul  class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                      <li>
+                        <a class="dropdown-item">Empty</a>
+                      </li>
+                    </ul>
+                  </ng-template>
+                </li>
+                <li>
                   <a style="cursor: pointer;" class="dropdown-item">
-                    My Accepted Offers &raquo;
+                    &laquo; My Accepted Offers
+                    <fa-layers  [fixedWidth]="true">
+                      <fa-layers-counter *ngIf="counterNotificationsMyAcceptedJobOffers > 0" content="{{counterNotificationsMyAcceptedJobOffers}}" [classes]="['change-color']"></fa-layers-counter>
+                    </fa-layers> 
                   </a>
                   <ul *ngIf="acceptedOffersList.length > 0; else elseBlock3" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
                     
                     <li  *ngFor="let offer of acceptedOffersList">
-                      <a  href="jobofferpage/{{offer.jobOfferId}}" class="dropdown-item" >{{offer.jobOfferTitle}} with <strong>{{offer.paymentAmount}} RON </strong>  from {{offer.dateCreated | date}} </a>
+                      <a [ngClass]="{'dropdown-item-red': offer.viewed == false}" style="cursor: pointer;" (click)="GoToJobOfferAndViewNotificationMyAcceptedOffers(offer)" class="dropdown-item" >{{offer.jobOfferTitle}} with <strong>{{offer.paymentAmount}} RON </strong>  from {{offer.dateCreated | date}} </a>
                     </li>
                     
                   </ul>
@@ -97,12 +108,15 @@
                 </li>
                 <li>
                   <a class="dropdown-item" href="#">
-                    My Active Job Offers &raquo;
+                    &laquo; My Active Job Offers
+                    <fa-layers  [fixedWidth]="true">
+                      <fa-layers-counter *ngIf="counterNotificationsActiveJobOffers > 0" content="{{counterNotificationsActiveJobOffers}}" [classes]="['change-color']"></fa-layers-counter>
+                    </fa-layers>
                   </a>
                   <ul *ngIf="jobOffersList != null && jobOffersList.length > 0; else elseBlock2" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
                     
                     <li  *ngFor="let joboffer of jobOffersList">
-                      <a  href="jobofferpage/{{joboffer.id}}" class="dropdown-item" >{{joboffer.title}} from {{joboffer.dateCreated | date}} </a>
+                      <a [ngClass]="{'dropdown-item-red': joboffer.viewed == false}" style="cursor: pointer;" (click)="GoToJobOfferAndViewNotificationCreateOfferJB(joboffer)" class="dropdown-item" >{{joboffer.title}} from {{joboffer.dateCreated | date}} </a>
                     </li>
                     
                   </ul>
@@ -117,7 +131,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item" href="#">
-                    Pending Jobs &raquo;
+                    &laquo; Jobs To Pay For
                   </a>
                   <ul *ngIf="pendingJobs != null && pendingJobs.length > 0; else elseBlock4" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
                     
@@ -137,7 +151,10 @@
                 </li>
                 <li>
                   <a class="dropdown-item" href="#">
-                    Closed Job Contracts &raquo;
+                    &laquo; Closed Job Contracts
+                    <fa-layers  [fixedWidth]="true">
+                      <fa-layers-counter *ngIf="counterNotificationsMyClosedJobOffers > 0" content="{{counterNotificationsMyClosedJobOffers}}" [classes]="['change-color']"></fa-layers-counter>
+                    </fa-layers>
                   </a>
                   <ul *ngIf="closedJobOfferList != null && closedJobOfferList.length > 0; else elseBlock5" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
                     

@@ -123,5 +123,33 @@ export class UserService {
 
   }
   
+  getTotalNrOfNotifications(){
+    return this.http.get(
+      this.baseUrl + "/api/users/notificationsnr",
+      this.publicHeaders
+    )
+  }
 
+  
+  viewNotification(idJobOffer:number,idNotificationType:number){
+    return this.http.post(
+      this.baseUrl + "/api/users/viewnotification/" + idJobOffer +  "/" + idNotificationType,
+      this.publicHeaders
+    )
+  }
+
+  getAllUsers(pageNr:number, noElements:number, filter:any){
+    return this.http.post(
+      this.baseUrl + '/api/users/all?pageNr=' + pageNr + "&noElements=" + noElements,
+      filter,
+      this.publicHeaders);
+  }
+
+  getTotalLength(filter:any){
+    return this.http.post(
+      this.baseUrl + '/api/users/total',
+      filter,
+      this.publicHeaders
+    )
+  }
 }

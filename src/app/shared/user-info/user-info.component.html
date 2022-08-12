@@ -1,3 +1,43 @@
-<p>{{firstName | uppercase}} {{lastName}}  {{date | date:"short"}}</p>
+<mat-card class="example-card">
 
-<button class="btn btn-danger" (click)="removeUser(firstName)">Remove</button>
+    <div class="inline">
+  
+      <mat-card-header>
+          <div mat-card-avatar style="cursor: pointer;width: 5vw; padding-bottom: 8%;" (click)="showProfile()" >
+            <img  #profileImage class="rounded-circle profileImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" >
+          </div>
+  
+          <mat-card-title style="cursor: pointer; width: 10vw;" (click)="showProfile()" >{{lastName}} {{firstName}}</mat-card-title>
+          <mat-card-subtitle >{{title}}</mat-card-subtitle>
+  
+          <div class="displayColumn">
+            <mat-card-subtitle >Rating As Freelancer</mat-card-subtitle>
+            <app-star-rating [rating]="ratingf" [totalnofeedbacks] = "totalnofeedbacksf"></app-star-rating>
+          </div>
+
+          <div class="displayColumn">
+            <mat-card-subtitle >Rating As Customer</mat-card-subtitle>
+            <app-star-rating [rating]="ratingc" [totalnofeedbacks] = "totalnofeedbacksc"></app-star-rating>
+          </div>
+  
+      </mat-card-header>
+  
+    </div>
+  
+  
+  
+  
+  
+      <mat-card-content>
+        <p>O mica descriere bla bla bla bla bla bla bla bla</p>
+      </mat-card-content>
+  
+
+  
+      <mat-card-actions>
+        <button (click)="showProfile()" mat-button>PROFILE</button>
+      </mat-card-actions>
+  
+      <mat-card-footer>
+      </mat-card-footer>
+    </mat-card>

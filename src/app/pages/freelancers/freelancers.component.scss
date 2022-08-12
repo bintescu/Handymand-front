@@ -1,77 +1,70 @@
 
 
-.search-option{
-    position:relative;
-    background-color: #000;
+
+.list-menu {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+.list-menu a {
+    color: #343a40;
+}
+
+.card-product-grid .info-wrap {
     overflow: hidden;
-    align-items: center;
-    color: #fff;
-    width: 200px;
-    height: 200px;
-    border-radius: 50% 50% 50% 50% / 70% 70% 10% 10%;
-    left: 30%;
-    transition: all 0.5s;
-    cursor: pointer
+    padding: 18px 20px;
 }
 
-.search-option .first-search{
-    position: absolute;
-    top: 20px;
-    left: 90px;
-    font-size: 20px;
-    opacity: 1000
+[class*='card-product'] a.title {
+    color: #212529;
+    display: block;
 }
 
-.search-option .inputs{
-    opacity: 0;
-    transition: all 0.5s ease;
-    transition-delay: 0.5s;
-    position: relative
+.title{
+    font-size: medium;
+}
+.card-product-grid:hover .btn-overlay {
+    opacity: 1;
 }
 
-.search-option .inputs input{
-    position: absolute;
-    top: 200px;
-    left: 30px;
-    padding-left: 20px;
-    background-color: transparent;
-    width: 300px;
-    border: none;
-    color: #fff;
-    border-bottom: 1px solid #eee;
-    transition: all 0.5s;
-    z-index: 10
+
+.container{
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
-.search-option .inputs input:focus{
-    box-shadow: none;
-    outline: none;
-    z-index: 10
+
+.everyOffer{
+
+  margin-top: 5vh;
+  margin-bottom: 1vh;
+  margin-right: 3vw;
+  height: 100%;
 }
 
-.search-option:hover{
-    border-radius: 0px;
-    width: 100%;
-    left: 0px
+::ng-deep .mat-paginator{
+    font-size: large;
+    margin-right: 40%;
 }
 
-.search-option:hover .inputs{
-    opacity: 1
+::ng-deep .mat-select-value {
+    font-size: large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+::ng-deep .mat-option-text {
+    font-size: large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.search-option:hover .first-search{
-    left: 27px;
-    top: 25px;
-    font-size: 15px
+.inputForm{
+    width: 75%;
 }
 
-.search-option:hover .inputs input{
-    top: 20px
+.priceInputs{
+    display: flex;
 }
 
-.search-option .share{
-    position: absolute;
-    right: 20px;
-    top: 22px
+#MinValue{
+    margin-right: 5%;
 }
-

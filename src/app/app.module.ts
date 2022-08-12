@@ -51,6 +51,9 @@ import { JobclosedComponent } from './pages/jobclosed/jobclosed.component';
 import { DialogCloseContractComponent } from './shared/dialog-close-contract/dialog-close-contract.component';
 import { DialogDeleteJobofferComponent } from './shared/dialog-delete-joboffer/dialog-delete-joboffer.component';
 import { StarRatingComponent } from './shared/star-rating/star-rating.component';
+import { UserInfoComponent } from './shared/user-info/user-info.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +84,7 @@ import { StarRatingComponent } from './shared/star-rating/star-rating.component'
     NavbarComponent,
     JobclosedComponent,
     StarRatingComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,

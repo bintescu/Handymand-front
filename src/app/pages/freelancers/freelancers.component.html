@@ -1,8 +1,101 @@
 
-    <div class="search-option">	
-        <i class='bx bx-search-alt-2 first-search'></i>	
-        <div class="inputs">	
-            <input type="text" name="">	
-        </div>	
-        <i class='bx bx-share-alt share'></i>	
-    </div>
+<div class="container">
+	<div class="row">
+		<aside class="col-md-3">
+			<div class="card">
+
+				<form [formGroup] = "myForm" (ngSubmit)="getAllUsers()">
+					<article class="filter-group">
+						<header class="card-header">
+							<h6 class="title">Name</h6>
+						</header>
+						<div>
+							<div class="card-body">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Search" formControlName="name">
+										<div class="input-group-append">
+											<button class="btn btn-block btn btn-info" type="submit">Apply</button>
+										</div>
+									</div>
+	
+							</div> <!-- card-body.// -->
+						</div>
+					</article>
+
+	
+	
+					<article class="filter-group">
+						<header class="card-header">
+							<h6 class="title">Rating As Freelancer</h6>
+						</header>
+						<div>
+							<div class="card-body">
+									<div class="input-group">
+										<input type="number" min="0" max="5" class="form-control" placeholder="Search" formControlName="ratingAsFreelancer">
+										<div class="input-group-append">
+											<button class="btn btn-block btn btn-info" type="submit">Apply</button>
+										</div>
+									</div>
+	
+							</div> 
+						</div>
+					</article>
+
+
+                    <article class="filter-group">
+						<header class="card-header">
+							<h6 class="title">Rating As Customer</h6>
+						</header>
+						<div>
+							<div class="card-body">
+									<div class="input-group">
+										<input type="number" min="0" max="5" class="form-control" placeholder="Search" formControlName="ratingAsCustomer">
+										<div class="input-group-append">
+											<button class="btn btn-block btn btn-info" type="submit">Apply</button>
+										</div>
+									</div>
+	
+							</div>
+						</div>
+					</article>
+				</form>
+			</div> 
+
+			<button (click)="clearFilter()"  style="margin-bottom: 2%; width: 100%; margin-top: 6%;"  class="btn btn-block btn btn-info">Clear Filters</button>
+		</aside>
+
+		<main class="col-md-9">
+
+				<header class="border-bottom mb-4 pb-3">
+						<div>
+							<span  class="mr-md-auto">{{length}} Items found </span>
+						</div>
+				</header>
+
+
+				<div id="containerJobOffers">
+					<div class="everyOffer" *ngFor = "let user of userList">
+						<app-user-info
+                        [id]="user.id"
+                        [firstName]="user.firstName"
+                        [lastName] ="user.lastName"
+                        [title]="user.title"
+                        [aboutMe]="user.aboutMe"
+                        >
+
+                        </app-user-info>
+					</div>
+				</div>
+
+				<div id="centerPaginator">
+					<mat-paginator #paginator [length]="length" [pageIndex]="currentPage" [pageSize]="pageSize"
+					[pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+					</mat-paginator>
+				</div>
+
+
+
+		</main>
+	</div>
+</div>
+

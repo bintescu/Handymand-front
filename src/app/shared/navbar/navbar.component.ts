@@ -8,6 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { JoboffersService } from 'src/app/services/joboffers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCloseContractComponent } from '../dialog-close-contract/dialog-close-contract.component';
+import { FaLayersCounterComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-navbar',
@@ -22,6 +23,13 @@ export class NavbarComponent implements OnInit {
   faBell = faBell;
   id:number = 0;
 
+  counterNotifications:number =  0;
+  counterNotificationActiveOffers:number = 0;
+  counterNotificationsActiveJobOffers:number = 0;
+  counterNotificationsMyAcceptedJobOffers:number = 0;
+  counterNotificationsMyClosedJobOffers:number = 0;
+
+
   offersList:OfferItem[] = [];
   jobOffersList:JobOfferItem[] = [];
   closedJobOfferList:JobOfferItem[] = [];
@@ -33,7 +41,8 @@ export class NavbarComponent implements OnInit {
     private userService:UserService, 
     private offersService:OffersService, 
     private jobOffersService:JoboffersService,
-    private dialog:MatDialog) { }
+    private dialog:MatDialog) { 
+    }
 
 
   parseJwt(token:string|null|undefined) {
@@ -74,21 +83,51 @@ export class NavbarComponent implements OnInit {
         this.id = this.parseJwt(token).id;
       }
 
-      this.getPendingOffers();
-      this.getActiveJobOffers();
-      this.getAcceptedOffers();
-      this.getPendingJobOffers();
-      this.getAllClosedJobOffersForFeedback();
+      this.initNotificationLists();
     }
 
   }
 
-  getPendingOffers(){
+  initNotificationLists(){
+    this.getActiveOffers();
+    this.getAcceptedOffers();
+    this.getActiveJobOffers();
+    this.getPendingJobOffers();
+    this.getAllClosedJobOffersForFeedback();
+
+    this.getTotalNumberOfNotifications();
+  }
+
+  getTotalNumberOfNotifications(){
+
+    const observer = {
+      next: (resp:any) => {
+        this.counterNotifications = resp.data;
+      },
+      error: (err:any) =>{
+        console.log("Error when get total number of notifications");
+        console.log(err);
+      }
+    }
+    
+    this.userService.getTotalNrOfNotifications().subscribe(observer);
+
+  }
+
+
+  getActiveOffers(){
     
     const observer = {
       next: (res:any) => {
 
+        this.counterNotificationActiveOffers = 0;
         this.offersList = res.data;
+        this.offersList.forEach((offer:OfferItem) => {
+          if(offer.viewed == false){
+            this.counterNotificationActiveOffers += offer.notViewedNotifications;
+          }
+        })
+
       },
       error: (err:any) => {
         console.log("Eroare pe get lista de oferte pentru logged in!");
@@ -104,7 +143,13 @@ export class NavbarComponent implements OnInit {
     const observer = {
       next: (res:any) => {
 
+        this.counterNotificationsMyAcceptedJobOffers = 0;
         this.acceptedOffersList = res.data;
+        this.acceptedOffersList.forEach((offer:OfferItem) => {
+          if(offer.viewed == false){
+            this.counterNotificationsMyAcceptedJobOffers += offer.notViewedNotifications;
+          }
+        })
       },
       error: (err:any) => {
         console.log("Eroare pe get lista de oferte acceptate pentru logged in!");
@@ -121,8 +166,14 @@ export class NavbarComponent implements OnInit {
       next: (res:any) => {
 
         this.closedJobOfferList = res.data;
-        console.log("closedJobOfferList :")
-        console.log(this.closedJobOfferList)
+        this.counterNotificationsMyClosedJobOffers = 0;
+
+        this.closedJobOfferList.forEach((jobOffer:JobOfferItem) => {
+          if(jobOffer.viewed == false){
+            this.counterNotificationsMyClosedJobOffers += jobOffer.notViewedNotifications;
+          }
+        })
+
       },
       error: (err:any) => {
         console.log("Eroare pe get lista de closed job offers pentru feedback!");
@@ -138,7 +189,14 @@ export class NavbarComponent implements OnInit {
     const observer = {
       next: (res:any) => {
 
+        this.counterNotificationsActiveJobOffers = 0;
         this.jobOffersList = res.data;
+        this.jobOffersList.forEach((jobOffer:JobOfferItem) => {
+          if(jobOffer.viewed == false){
+            this.counterNotificationsActiveJobOffers += jobOffer.notViewedNotifications;
+          }
+        })
+
       },
       error: (err:any) => {
         console.log("Eroare pe get lista de job offers pentru logged in!");
@@ -179,6 +237,12 @@ export class NavbarComponent implements OnInit {
   }
 
   showFeedbackDialog(offer:JobOfferItem){
+
+    this.userService.viewNotification(offer.id,3).subscribe((res:any) => {
+      this.initNotificationLists();
+    });
+
+
     const sentData = {
       "IdJobOffer" : offer.id,
       "FromClient" : false,
@@ -197,6 +261,34 @@ export class NavbarComponent implements OnInit {
       });;
   }
 
+
+  GoToJobOfferAndViewNotificationCreateOffer(offer:OfferItem){
+
+    
+    this.userService.viewNotification(offer.jobOfferId,1).subscribe((res:any) => {
+      this.initNotificationLists();
+      this.router.navigate(['/jobofferpage/'+offer.jobOfferId])
+    });
+
+  }
+
+  GoToJobOfferAndViewNotificationCreateOfferJB(jobOffer:JobOfferItem){
+
+    
+    this.userService.viewNotification(jobOffer.id,1).subscribe((res:any) => {
+      this.initNotificationLists();
+      this.router.navigate(['/jobofferpage/'+jobOffer.id])
+    });
+
+  }
+
+  GoToJobOfferAndViewNotificationMyAcceptedOffers(offer:OfferItem){
+    this.userService.viewNotification(offer.jobOfferId,2).subscribe((res:any) => {
+      this.initNotificationLists();
+      this.router.navigate(['/jobofferpage/'+offer.jobOfferId])
+    });
+  }
+
 }
 
 class OfferItem{
@@ -205,6 +297,8 @@ class OfferItem{
   jobOfferId!: number;
   jobOfferTitle!: string;
   paymentAmount!:number;
+  viewed!:boolean;
+  notViewedNotifications!:number;
 
 }
 
@@ -213,5 +307,7 @@ class JobOfferItem{
   dateCreated!: Date;
   title!: string;
   creationUserId:number = 0;
-  creationUserName:string|null = null
+  creationUserName:string|null = null;
+  viewed!:boolean;
+  notViewedNotifications!:number;
 }

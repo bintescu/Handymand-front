@@ -11,7 +11,6 @@ import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
-    UserInfoComponent,
     ContractInfoComponent,
     JobofferInfoComponent,
     FooterComponent,
@@ -22,7 +21,6 @@ import {MatCardModule} from '@angular/material/card';
     FontAwesomeModule,
   ], 
   exports:[
-    UserInfoComponent,
     ContractInfoComponent,
     JobofferInfoComponent,
     FooterComponent

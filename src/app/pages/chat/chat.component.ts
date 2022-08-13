@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
     this.signalRService.connect();
   }
 
+
   sendMessage(): void {
     this.signalRService.sendMessageToApi(this.text).subscribe({
       next: _ => this.text = '',
@@ -37,6 +38,8 @@ export class ChatComponent implements OnInit {
     //   next: (resp:any) => this.text = '',
     //   error: (err:any) => console.error(err)
     // });
+
+
   }
 
 }

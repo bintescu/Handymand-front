@@ -11,6 +11,7 @@ import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular} from '@fortawesome/free-regular-svg-icons';
 import { faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-offer-info',
@@ -49,7 +50,8 @@ export class OfferInfoComponent implements OnInit {
   constructor(private authService:AuthService, 
     private router:Router,
     private jobOfferService:JoboffersService,
-    private offerSerivce:OffersService) { }
+    private offerSerivce:OffersService,
+    public notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.getProfilePictureUser();
@@ -114,6 +116,8 @@ export class OfferInfoComponent implements OnInit {
           console.log("res:")
           console.log(res)
           this.acceptedOfferEvent.emit(true);
+          this.pushNotification();
+          
         },
         error: (err:any) => {
           console.log("Eroare pe accept offer!")
@@ -128,6 +132,16 @@ export class OfferInfoComponent implements OnInit {
 
       this.offerSerivce.acceptOffer(data).subscribe(acceptOfferObserver);
     }
+
+  }
+
+  
+
+  pushNotification():void{
+    this.notificationService.updateNotifications(true).subscribe({
+      next: _ => console.log("succes pushed notifications!"),
+      error: (err) => console.error(err)
+    });
 
   }
 }

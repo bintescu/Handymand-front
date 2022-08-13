@@ -70,7 +70,7 @@ export class DialogCloseContractComponent implements OnInit {
     if(this.FromClient){
       const observer = {
         next: (resp:any) => {
-          this.dialogRef.close();
+          this.dialogRef.close("client");
           this.router.navigate(['/joboffers'] )
   
         },

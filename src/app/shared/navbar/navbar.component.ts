@@ -9,6 +9,8 @@ import { JoboffersService } from 'src/app/services/joboffers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCloseContractComponent } from '../dialog-close-contract/dialog-close-contract.component';
 import { FaLayersCounterComponent } from '@fortawesome/angular-fontawesome';
+import { SignalrService } from 'src/app/services/signalr.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -41,7 +43,8 @@ export class NavbarComponent implements OnInit {
     private userService:UserService, 
     private offersService:OffersService, 
     private jobOffersService:JoboffersService,
-    private dialog:MatDialog) { 
+    private dialog:MatDialog,
+    public notificationService: NotificationService) { 
     }
 
 
@@ -56,6 +59,12 @@ export class NavbarComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.notificationService.connect();
+
+    this.notificationService.notifications.subscribe((data: boolean) => {
+      this.initNotificationLists();
+    });
+
 
     const observer = {
       next: (response:any) => {
@@ -87,6 +96,9 @@ export class NavbarComponent implements OnInit {
     }
 
   }
+
+
+
 
   initNotificationLists(){
     this.getActiveOffers();

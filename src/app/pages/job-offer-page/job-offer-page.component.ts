@@ -12,6 +12,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Offer } from 'src/app/interfaces/offer';
 import { DialogCloseContractComponent } from 'src/app/shared/dialog-close-contract/dialog-close-contract.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-job-offer-page',
@@ -59,7 +60,8 @@ export class JobOfferPageComponent implements OnInit {
       private authService:AuthService,
       private formBuilder: UntypedFormBuilder,
       private offersService: OffersService,
-      private dialog:MatDialog) { }
+      private dialog:MatDialog,
+      private notificationService:NotificationService) { }
 
   get jobOfferTitle(){
     return (this.jobOffer && this.jobOffer.title) ? this.jobOffer.title : null;
@@ -270,6 +272,9 @@ export class JobOfferPageComponent implements OnInit {
 
     const observer = {
       next: (res:any) =>{
+
+        this.pushNotification();
+
         this.offerForm.reset();
 
         //Afiseaza fereastra de succes
@@ -336,6 +341,16 @@ export class JobOfferPageComponent implements OnInit {
     this.offersService.createOffer(this.offerForm.value).subscribe(observer);
     //Mai trebuie sa facem un getAllOffers()
   }
+
+
+  pushNotification():void{
+    this.notificationService.updateNotifications(true).subscribe({
+      next: _ => console.log("succes pushed notifications!"),
+      error: (err) => console.error(err)
+    });
+
+  }
+
 
   getProfilePictureUser(){
 
@@ -436,6 +451,10 @@ export class JobOfferPageComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogCloseContractComponent, {
       width:'30%',
       data:sentData,
+      }).afterClosed().subscribe((val:any) => {
+        if(val === 'client'){
+          this.pushNotification();
+        }
       });
 
   }

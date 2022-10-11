@@ -17,7 +17,7 @@
         <a class="nav-link" href="">Home</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" href="joboffers">Offers</a>
+        <a class="nav-link" href="joboffers">Jobs</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="freelancers">Users</a>
@@ -90,7 +90,7 @@
                       <fa-layers-counter *ngIf="counterNotificationsMyAcceptedJobOffers > 0" content="{{counterNotificationsMyAcceptedJobOffers}}" [classes]="['change-color']"></fa-layers-counter>
                     </fa-layers> 
                   </a>
-                  <ul *ngIf="acceptedOffersList.length > 0; else elseBlock3" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
+                  <ul *ngIf="acceptedOffersList != null && acceptedOffersList.length > 0; else elseBlock3" class="dropdown-menu dropdown-menu-dark dropdown-submenu dropdown-submenu-left">
                     
                     <li  *ngFor="let offer of acceptedOffersList">
                       <a [ngClass]="{'dropdown-item-red': offer.viewed == false}" style="cursor: pointer;" (click)="GoToJobOfferAndViewNotificationMyAcceptedOffers(offer)" class="dropdown-item" >{{offer.jobOfferTitle}} with <strong>{{offer.paymentAmount}} RON </strong>  from {{offer.dateCreated | date}} </a>

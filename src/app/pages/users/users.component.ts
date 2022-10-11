@@ -63,6 +63,7 @@ export class UsersComponent implements OnInit {
   }
 
   editUser(row:any):void{
+    console.log(row);
     this.dialog.open(DialogUserComponent,{
       width:'30%',
       data:row

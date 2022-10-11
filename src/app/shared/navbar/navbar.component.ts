@@ -154,9 +154,9 @@ export class NavbarComponent implements OnInit {
     
     const observer = {
       next: (res:any) => {
-
         this.counterNotificationsMyAcceptedJobOffers = 0;
         this.acceptedOffersList = res.data;
+        if(this.acceptedOffersList != null)
         this.acceptedOffersList.forEach((offer:OfferItem) => {
           if(offer.viewed == false){
             this.counterNotificationsMyAcceptedJobOffers += offer.notViewedNotifications;

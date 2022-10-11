@@ -53,8 +53,6 @@ export class AuthService {
     return encrypted.toString();
   }
 
-
-  //The get method is use for decrypt the value.
   get(value:string,keyEnv:string,Iv:CryptoJS.lib.WordArray){
     var key = CryptoJS.enc.Utf8.parse(keyEnv);
     var decrypted = CryptoJS.AES.decrypt(value, key, {

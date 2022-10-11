@@ -29,7 +29,7 @@
               <div class="card mt-3">
                 <div class="about-text go-to">
                   <h3 class="dark-color" style="padding-left: 6vw;">About Me</h3>
-                  <p style="padding-left: 2vw; padding-right:2vw; padding-top: 2vh;">{{user.aboutMe}}</p>
+                  <p  *ngIf="user.aboutMe" style="padding-left: 2vw; padding-right:2vw; padding-top: 2vh;">{{user.aboutMe}}</p>
                 </div>
               </div>
             </div>

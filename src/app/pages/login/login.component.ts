@@ -80,15 +80,11 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
     this.error = false;
 
     if(this.validateEmail(this.email)){
-
-      
       let data = {
         "email":this.authService.set(this.email,this.keyEnv,this.IvEnv),
         "password":this.authService.set(this.password,this.keyEnv,this.IvEnv),
         "iv":this.authService.wordArrayToByteArray(this.IvEnv,16)
       }
-
-
       try{
 
         const observer = {

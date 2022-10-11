@@ -90,8 +90,9 @@
                     <button mat-icon-button color="primary" (click)="editUser(row)">
                       <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn" (click)="blockUser(row)">
-                        <mat-icon>block</mat-icon>
+                    <button mat-icon-button (click)="blockUser(row)">
+                        <mat-icon color="warn" *ngIf="row.blocked == false; else elseBlock">block</mat-icon>
+                        <ng-template #elseBlock> <mat-icon color="primary" >check</mat-icon></ng-template>
                     </button>
                     <button mat-icon-button color="warn" (click)="deleteUser(row)">
                       <mat-icon>delete</mat-icon>

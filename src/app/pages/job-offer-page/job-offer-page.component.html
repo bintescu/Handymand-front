@@ -4,12 +4,12 @@
         <div class="col-md-6 border-end">	
             <div *ngIf="noImages; else elseBlock" class="d-flex flex-column justify-content-center">	
                 <div class="main_image">	
-                    <img id="slideImageMain" src="https://i.imgur.com/TAzli1U.jpg" id="main_product_image" width="350">	
+                    <img id="slideImageMain" src="assets/Logo.ico" id="main_product_image" width="350">	
                 </div>	
                 <div class="thumbnail_images">	
                     <ul id="thumbnail">	
                         <li *ngFor="let index of noImages;">
-                            <img id="slideImage{{index}}" (click)="changeImage($event)" src="https://i.imgur.com/TAzli1U.jpg" width="70">
+                            <img id="slideImage{{index}}" (click)="changeImage($event)" src="assets/Logo.ico" width="70">
                         </li>		
                     </ul>	
                 </div>	
@@ -65,7 +65,7 @@
                 <h4>RON {{jobOfferLowPrice}} - RON {{jobOfferHighPrice}}</h4>	
 
 
-                <div *ngIf="skills" >	
+                <div *ngIf="!skills" >	
                     <span class="fw-bold">Skills</span>	
                     <div class="colors">	
                             <p class="skill" *ngFor="let skill of skills" style="display:flex ;">{{skill}}</p>		
